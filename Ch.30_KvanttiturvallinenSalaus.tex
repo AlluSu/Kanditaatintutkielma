@@ -10,7 +10,19 @@ Tiiviste-pohjainen salaus (\emph{hash-based cryptography}) on salausjärjestelm�
 Koodi-pohjainen salaus (\emph{code-based cryptography}) perustuu Robert McEliecen artikkeliin \emph{A Public-Key Cryptosystem Based On Algebraic Coding Theory} vuodelta 1978. McEliecen esittelemässä salauksessa salattavaa viestiä toistetaan monta kertaa putkeen, jonka jälkeen siihen lisätään tahallisesti virheitä. Näitä tahallaan lisättyjä virheitä kutsutaan virheenkorjauskoodeiksi (\emph{error-correction codes}).
 
 \subsection{Hila-pohjainen salaus}
-Hila-pohjainen salaus (\emph{lattice-based cryptography}) on kvanttiturvallinen salauksen muoto. Hila-pohjaisessa salauksessa salaus perustuu tiettyihin laskennallisesti vaativiin ongelmiin koskien hiloja. Hila on matemaattinen objekti, joka kuvataan joukkona pisteitä \emph{n}-ulotteisessa avaruudessa ja sillä on jonkinlainen jaksollinen rakenne.
+Hila-pohjainen salaus (\emph{lattice-based cryptography}) on kvanttiturvallinen salauksen muoto (\cite{regev2006lattice}). Hila-pohjaisessa salauksessa salaus perustuu tiettyihin laskennallisesti vaativiin ongelmiin koskien hiloja. Hila on matemaattinen objekti, joka kuvataan joukkona pisteitä \emph{n}-ulotteisessa avaruudessa ja sillä on jonkinlainen jaksollinen rakenne. Formaalimmin hila on \emph{n}:stä lineaarisesti riippumattomasta vektorista muodostuva joukko vektoreita: 
+
+\[L(v_1,...v_n) =\Bigg\{ {\sum_{i=1}^{n}\alpha_i 
+v_i|\alpha_i \in \mathbb{Z}} \Bigg\}\]. 
+
+Missä vektorit $v_1,...,v_n$ ovat hilan kanta.
+
+Monissa hiloihin liittyvissä 
+laskennallisissa ongelmissa ollaan kiinnostuneita löytämään jokin lyhin vektori tai vektoreita. Lyhimmän vektorin ongelma (\emph{SVP, Shortest Vector Problem)} on yleinen esimerkki laskennallisesta ongelmasta kun puhutaan hiloista. \emph{SVP}:ssä annetaan hilan kanta ja tehtävän on määritellä lyhin vektori hilassa, joka ei ole nollavektori. \emph{SVP}:n haastavuus piilee siinä, että hilalla on monta eri kantaa ja hilan kanta koostuu erittäin pitkistä vektoreista.
+
+Hila-pohjaisessa salauksessa huomattavaa on se miten salauksen vahvuus perustuu ongelmien pahimman tapauksen mukaan (\emph{worst-case hardness}). Esimerkiksi nykyisissä salausjärjestelmissä käyettävää suurten alkulukujen tekijöihin jakamisen vaikeutta kuvataan keskimääräisen tapauksen mukaan (\emph{average-case hardness}). Tämä tarkoittaa käytännössä sitä, että alkulukujen tekijöihin jako on helppo laskennallinen ongelma, jos tekijät ovat esimerkiksi pieniä tai parillisia lukuja. Tekijöihin jako taas vaikeutuu, jos luvut ovat hyvin suuria. Tällaista ilmiöitä ei esiinny hilojen kanssa, että olisi jokin tietty jakauma mikä määrittelee onko ongelma laskennallisesti helppo vai vaikea.
+
+Hila-pohjaisen salauksen hyviä puolia ovat muun muassa salauksen laskennan yksinkertaisuus, koska ne vaativat usein vain modulaariartimetiikkaa. Hiloihin perustuviin ongelmiin ei ole tällä hetkellä tiedossa olevia kvanttialgoritmeja.
 
 \subsection{Monimuuttuja-pohjainen salaus}
 Monimuuttuja-pohjainen (\emph{multivariate-based cryptography}) on eräs kvanttiturvallisen salauksen muoto. Monimuuttuja-pohjainen salaus perustuu monta muuttujaa sisältävien yhtälöryhmien ratkaisun vaikeuteen. Yhtälöryhmien yhtälöt ovat neliöllisiä eli epälineaarisia äärellisessä kunnassa. Tällaisen yhtälöryhmän ratkaisu on NP-kova ongelma ratkaista eli se on laskennallisesti hyvin vaativa ongelma.

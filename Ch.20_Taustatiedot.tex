@@ -2,20 +2,18 @@
 
 \section{Nykyiset salausjärjestelmät}
 
-Nykypäivänä kuka tahansa tietokoneen ja tietojärjestelmien käyttäjä törmää erilaisiin salausjärjestelmiin päivittäin tiedostaen tai tiedostamatta.
-
 \subsection{Symmetrinen salaus}
  Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella.
  
  
  
  \subsection{Julkisen avaimen salaus}
- Epäsymmetrisessa eli julkisen avaimen salauksessa on käytössä kaksi avainta. Toinen on niin kutsuttu julkinen avain (\emph{public key}) ja toinen salainen avain (\emph{private key}) (\cite{bellare2005introduction}). Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. Tässä tapauksessa purkuavain on salainen avain ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain, joka saa olla julkisesti esillä. Viestin lähetys toimii nyt seuraavasti:
+ Epäsymmetrisessa eli julkisen avaimen salauksessa on käytössä kaksi avainta. Toinen on niin kutsuttu julkinen avain (\emph{public key}) ja toinen salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) (\cite{bellare2005introduction}). Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. Tässä tapauksessa purkuavain on salainen avain ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain, joka saa olla julkisesti esillä. Viestin lähetys toimii nyt seuraavasti:
  
  \begin{enumerate}
      \item Lähettäjä \emph{S} lähettää viestin vastaanottajalle \emph{R}.
      \item \emph{S} salaa viestin \emph{R}:n julkisella avaimella $PK_{R}$.
-     \item \emph{R} saa \emph{S}:n viestin vastaan ja purkaa sen salauksen omalla yksityisellä avaimellaan $SK_{R}$.
+     \item \emph{R} saa \emph{S}:n viestin vastaan ja purkaa sen salauksen omalla salaisella avaimellaan $SK_{R}$.
  \end{enumerate}
 Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että salaus puretaan eri avaimella kuin millä se salataan.
  
@@ -23,12 +21,13 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
   Yksi ensimmäisiä ja tänäkin päivänä käytetyimpiä julkisen avaimen salausjärjestelmiä on RSA, joka on nimetty keksijöidensä mukaan (Rivest, Shamir ja Adleman). RSA:n tarjoama suojaus perustuu suurten alkulukujen tekijöihin jakoon (\cite{montgomery1994survey}). RSA:n avainpari luodaan seuraavasti  (\cite{doi:10.1080/23742917.2016.1226650}):
   
   \begin{enumerate}
-      \item Valitaan kaksi alkulukua \emph{p} ja \emph{q}, missä $p \neq q$.
+      \item Valitaan kaksi suurta alkulukua \emph{p} ja \emph{q}, missä $p \neq q$.
       \item Lasketaan $n = pq$.
-      \item Lasketaan $\phi(n) = \phi(p)\phi(q) = (p-1)(q-1)$. $\phi(n)$ on Eulerin $\phi$-funktio (\emph{Euler's totient}). Laskutoimituksen arvo on salausavain eli \emph{private key}.
-      \item Valitaan kokonaisluku \emph{e} s.e $1 < e < \phi(n)$ ja $syt(e, \phi(n)) = 1$.
+      \item Lasketaan $\phi(n)\footnote{$\phi(n)$ on Eulerin $\phi$-funktio (\emph{Euler's totient}).} = \phi(p)\phi(q) = (p-1)(q-1)$.  Laskutoimituksesta saadaan salainen avain.
+      \item Valitaan kokonaisluku \emph{e} s.e\footnote{s.e on lyhenne "siten että".} $1 < e < \phi(n)$ ja $syt(e, \phi(n))\footnote{syt on lyhenne "suurin yhteinen tekijä" (\emph{Greatest Common Divisor})} = 1$.
       \item Lasketaan $de \equiv 1 \mod \phi(n)$.
   \end{enumerate}
+  Nyt siis julkinen avain (\emph{n},\emph{e}) koostuu siis jakojäännöksestä \emph{n} ja salauseksponentista (\emph{encryption exponent}) \emph{e}. Salainen avain (\emph{n},\emph{d}) koostuu jakojäännöksestä \emph{n} ja purkueksponentista (\emph{decryption exponent}) \emph{d}.
   
  Nämä edellä mainitut ongelmat ovat laskennallisesti hyvin haastavia ja niihin ei tunneta tehokkaita ja nopeita ratkaisuja isoilla syötteillä klassisilla tietokoneilla minkä takia niitä on hyvä käyttää salausjärjestelmissä. Toisaalta kummallekkin ongelmalle tunnetaan tehokkaita ratkaisuja, jotka voidaan suorittaa kvanttitietokoneella. Peter Shor esitti vuonna 1994 Shorin algoritmin. Shorin algoritmia käyttäen voidaan ratkaista edellä mainitut vaikeat lukuteorian ongelmat tehokkaasti kvanttitietokoneella (\cite{10.1007/978-3-319-11659-4_15}).
  

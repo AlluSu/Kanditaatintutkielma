@@ -1,13 +1,17 @@
 \chapter{Kvanttiturvallinen salaus\label{results}}
-Seuraavaksi käymme yleisesti läpi muutamia kvanttiturvallisia salausjärjestelmiä ja menetelmiä.
 
 \section{Kvanttiturvalliset salausjärjestelmät}
 
 \subsection{Tiivistepohjainen salaus}
-Tiivistepohjainen salaus (\emph{hash-based cryptography}) on salausjärjestelmä, joka pohjautuu aiemmin mainittuihin tiivistefunktioihin. Tiivistepohjaista salausta voidaan käyttää kvanttiturvallisen digitaalisen allekirjoituksen luomiseen (\emph{hash-based digital signature}). Idea tiivistepohjaisen allekirjoituksen luomiseen tulee Leslie Lamportin artikkelista vuodelta 1979.
+Tiivistepohjainen salaus (\emph{hash-based cryptography}) on salausjärjestelmä, joka pohjautuu aiemmin mainittuihin tiivistefunktioihin. Tiivistepohjaista salausta voidaan käyttää kvanttiturvallisen digitaalisen allekirjoituksen luomiseen (\emph{hash-based digital signature}).
 
 \subsection{Koodipohjainen salaus}
-Koodipohjainen salaus (\emph{code-based cryptography}) perustuu Robert McEliecen artikkeliin \emph{A Public-Key Cryptosystem Based On Algebraic Coding Theory} vuodelta 1978. McEliecen esittelemässä salauksessa salattavaa viestiä toistetaan monta kertaa putkeen, jonka jälkeen siihen lisätään tahallisesti virheitä. Näitä tahallaan lisättyjä virheitä kutsutaan virheenkorjauskoodeiksi (\emph{error-correction codes}).
+Koodipohjainen salaus (\emph{code-based cryptography}) perustuu Robert McEliecen artikkeliin \emph{A Public-Key Cryptosystem Based On Algebraic Coding Theory} vuodelta 1978 (\cite{8012331}). McEliecen esittelemässä salauksessa salattavaa viestiä toistetaan monta kertaa putkeen, jonka jälkeen siihen lisätään tahallisesti virheitä. Näitä tahallaan lisättyjä virheitä kutsutaan virheenkorjauskoodeiksi (\emph{error-correction codes}). Julkisena avaimena tässä salausjärjestelmässä toimii niin kutsuttu kehitinmatriisi (\emph{generator matrix}). Salausjärjestelmän turvallisuus perustuu siihen, että tällaisen salauksen purkaminen on yleisesti ottaen vaikeaa. Kuinka löytää salattu viesti kaiken muun virheellisen tiedon joukosta jos ei ole tietoa miten se on salattu? Tämä on NP-täydellinen ongelma. Lisäksi kehitinmatriisin erottaminen satunnaisesta matriisista on hankalaa.
+
+McEliecen esittämä salausjärjestelmä on hyvä kandidaatti kvanttiturvalliseksi julkisen avaimen salausjärjestelmäksi. Hyvinä puolina salausjärjestelmässä on muun muassa laskennallinen tehokkuus viestiä salattaessa ja salausta purettaessa. Salausjärjestelmän tuoma turva on hyvin ymmärretty ja kestänyt tarkastelua yli 40 vuotta.
+
+Huonoina puolina mainittakkoon, että digitaalisten allekirjoitusten tekemiseen se ei sovellu. Lisäksi se tuottaa kooltaan hyvin suuria julkisia avaimia jos käytetään kvanttiturvallista versiota. Tällöin puhutaan noin 1 megatavun kokoisista avaimista mikä saattaa mahdollisesti rajoittaa salausjärjestelmän käyttöä esimerkiksi sulautetuissa järjestelmissä tai muissa järjestelmissä, jossa muistia on vähän ja resursseja rajoitetusti. Kuitenkin McEliecen salausjärjestelmästä on olemassa variantteja, joissa on mahdollistettu pienempi avaimen koko.
+
 
 \subsection{Hilapohjainen salaus}
 Hilapohjainen salaus (\emph{lattice-based cryptography}) on kvanttiturvallinen salauksen muoto (\cite{regev2006lattice}). Hilapohjaisessa salauksessa salaus perustuu tiettyihin laskennallisesti vaativiin ongelmiin koskien hiloja. Hila on matemaattinen objekti, joka kuvataan joukkona pisteitä \emph{n}-ulotteisessa avaruudessa ja sillä on jonkinlainen jaksollinen rakenne. Formaalimmin hila on \emph{n}:stä lineaarisesti riippumattomasta vektorista muodostuva joukko vektoreita: 

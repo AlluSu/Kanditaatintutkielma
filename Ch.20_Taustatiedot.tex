@@ -1,14 +1,19 @@
 \chapter{Kvanttilaskenta ja salausjärjestelmät\label{methods}}
 
 \section{Nykyiset salausjärjestelmät}
+Käymme nyt läpi yleisimpiä salausjärjestelmiä, joihin jokainen tietojärjestelmien käyttäjä nykypäivänä törmää tiedostaen tai tiedostamattaan. Käymme läpi salausjärjestelmien ideat ja miten kvanttitietokoneet uhkaavat niitä.
+
+Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa avainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on vain \emph{k} bittiä pitkä bittijono.
+
+Salausjärjestelmien jälkeen tutustumme kvanttilaskentaan ja sitä käyttiviin tietokoneisiin. Lisäksi tutustumme Shorin algoritmiin.
 
 \subsection{Symmetrinen salaus}
- Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella.
+ Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}).
  
- 
+ Symmetrinen salaus on itsessään jo kvanttiturvallinen, koska..
  
  \subsection{Julkisen avaimen salaus}
- Epäsymmetrisessa eli julkisen avaimen salauksessa on käytössä kaksi avainta. Toinen on niin kutsuttu julkinen avain (\emph{public key}) ja toinen salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) (\cite{bellare2005introduction}). Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. Tässä tapauksessa purkuavain on salainen avain ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain, joka saa olla julkisesti esillä. Viestin lähetys toimii nyt seuraavasti:
+ Epäsymmetrisessa eli julkisen avaimen salauksessa on käytössä kaksi avainta. Toinen on niin kutsuttu julkinen avain (\emph{public key}) ja toinen salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) (\cite{bellare2005introduction}). Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. Tässä tapauksessa purkuavain on salainen avain ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain, joka saa ja pitää olla julkisesti esillä. Viestin lähetys toimii nyt seuraavasti:
  
  \begin{enumerate}
      \item Lähettäjä \emph{S} lähettää viestin vastaanottajalle \emph{R}.
@@ -21,22 +26,30 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
   Yksi ensimmäisiä ja tänäkin päivänä käytetyimpiä julkisen avaimen salausjärjestelmiä on RSA, joka on nimetty keksijöidensä mukaan (Rivest, Shamir ja Adleman). RSA:n tarjoama suojaus perustuu suurten alkulukujen tekijöihin jakoon (\cite{montgomery1994survey}). RSA:n avainpari luodaan seuraavasti  (\cite{doi:10.1080/23742917.2016.1226650}):
   
   \begin{enumerate}
-      \item Valitaan kaksi suurta alkulukua \emph{p} ja \emph{q}, missä $p \neq q$.
-      \item Lasketaan $n = pq$.
-      \item Lasketaan $\phi(n)\footnote{$\phi(n)$ on Eulerin $\phi$-funktio (\emph{Euler's totient}).} = \phi(p)\phi(q) = (p-1)(q-1)$.  Laskutoimituksesta saadaan salainen avain.
-      \item Valitaan kokonaisluku \emph{e} s.e\footnote{s.e on lyhenne "siten että".} $1 < e < \phi(n)$ ja $syt(e, \phi(n))\footnote{syt on lyhenne "suurin yhteinen tekijä" (\emph{Greatest Common Divisor})} = 1$.
-      \item Lasketaan $de \equiv 1 \mod \phi(n)$.
-  \end{enumerate}
-  Nyt siis julkinen avain (\emph{n},\emph{e}) koostuu siis jakojäännöksestä \emph{n} ja salauseksponentista (\emph{encryption exponent}) \emph{e}. Salainen avain (\emph{n},\emph{d}) koostuu jakojäännöksestä \emph{n} ja purkueksponentista (\emph{decryption exponent}) \emph{d}.
   
- Nämä edellä mainitut ongelmat ovat laskennallisesti hyvin haastavia ja niihin ei tunneta tehokkaita ja nopeita ratkaisuja isoilla syötteillä klassisilla tietokoneilla minkä takia niitä on hyvä käyttää salausjärjestelmissä. Toisaalta kummallekkin ongelmalle tunnetaan tehokkaita ratkaisuja, jotka voidaan suorittaa kvanttitietokoneella. Peter Shor esitti vuonna 1994 Shorin algoritmin. Shorin algoritmia käyttäen voidaan ratkaista edellä mainitut vaikeat lukuteorian ongelmat tehokkaasti kvanttitietokoneella (\cite{10.1007/978-3-319-11659-4_15}).
+      \item Valitaan kaksi suurta alkulukua \emph{p} ja \emph{q}, missä $p \neq q$.
+      
+      \item Lasketaan $n = pq$.
+      
+      \item Lasketaan $\phi(n)\footnote{$\phi(n)$ on Eulerin $\phi$-funktio (\emph{Euler's totient}), joka kertoo montako $k \leq n$ kokonaislukua löytyy, jotka ovat \emph{n}:n tekijöitä (\cite{lehmer1932euler}).} = \phi(p)\phi(q) = (p-1)(q-1)$.  Laskutoimituksesta saadaan salainen avain.
+      
+      \item Valitaan kokonaisluku \emph{e} siten että $1 < e < \phi(n)$ ja $syt(e, \phi(n))\footnote{\emph{Suurin yhteinen tekijä} eli suurin kokonaisluku joka jakaa \emph{e}:n sekä $\phi(n)$ (\cite{doi:10.1137/S0036144598347011})} = 1$.
+      
+      \item Lasketaan $de \equiv 1 \mod \phi(n)$.
+  
+  \end{enumerate}
+  Nyt siis julkinen avain (\emph{n}, \emph{e}) koostuu siis jakojäännöksestä \emph{n} ja salauseksponentista (\emph{encryption exponent}) \emph{e}. Salainen avain (\emph{n}, \emph{d}) koostuu jakojäännöksestä \emph{n} ja purkueksponentista (\emph{decryption exponent}) \emph{d}.
+  
+ Nämä edellä mainitut ongelmat ovat laskennallisesti hyvin haastavia ja niihin ei tunneta tehokkaita ja nopeita ratkaisuja isoilla syötteillä klassisilla tietokoneilla minkä takia niitä on hyvä käyttää salausjärjestelmissä. Toisaalta kummallekkin ongelmalle tunnetaan tehokkaita ratkaisuja, jotka voidaan suorittaa kvanttitietokoneella. Peter Shor esitti vuonna 1994 Shorin algoritmin. Shorin algoritmia käyttäen voidaan ratkaista edellä mainitut vaikeat lukuteorian ongelmat tehokkaasti eli polynomisessa ajassa kvanttitietokoneella (\cite{10.1007/978-3-319-11659-4_15}).
  
  \subsection{Tiivistefunktiot}
  Tiivistefunktiot eli hashit (\emph{hash-functions}) ovat funktioita, jotka ottavat mielivaltaisen pituisen merkkijonon \emph{M} ja muodostavat siitä aina tietyn mittaisen toisen merkkijonon \emph{MD}, jota kutsutaan tiivisteeksi. Formaalimmin tiivistefunktio on funktio:
  
  \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n >= 1.\] (\cite{sobti2012cryptographic}). Voi siis ajatella, että tällainen hash ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
  
- Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA1 ja MD-5. Esimerkiksi SHA1 tiivistefunktio muodostaa syötteestä aina 160 bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä esimerkiksi salasanasta on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä hashaus voitaisiin peruuttaa.
+ Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA1 ja MD-5. Esimerkiksi SHA1 tiivistefunktio muodostaa syötteestä aina 160 bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä \emph{hashaus} voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{F}.
+ 
+ Tiivistefunktiotkin ovat itsessään jo kvanttiturvallisia, koska..
  
  \subsection{Digitaalinen allekirjoitus}
  Digitaalinen allekirjoitus (\emph{digital signature}) on menetelmä, jolla voidaan todentaa digitaalisia dokumentteja (\cite{1649003}). Sen toimintaperiaate on analoginen perinteisiin allekirjoituksiin verrattuna. Digitaalisella allekirjoituksella todennetaan muun muassa digitaalisen dokumentin datan eheys. Eheydellä voidaan tässä kontekstissa tarkoittaa esimerkiksi dokumentin päivämäärää tai sisältämää informaatiota. Digitaalisen allekirjoituksen luominen yhdistelee edellä mainittuja salausjärjestelmiä kuten tiivistefunktioita ja julkisen tai symmetrisen avaimen salausta. Digitaalinen allekirjoitus on käytännössä bittijono, jonka jokin digitaalisen allekirjoituksen luomiseen tarkoitettu algoritmi luo. Tämä allekirjoitus muodostetaan allekirjoitettavien dokumenttien ja jonkin vain viestin lähettäjän määrittelemän tiedon mukaan. Digitaalisen allekirjoituksen luominen koostuu yleensä kolmesta eri vaiheesta; salausavaimen generointi, digitaalisen allekirjoituksen generointi ja digitaalisen allekirjoituksen varmennus. Salausavain voidaan generoida jollain edellämainituista menetelmistä kuten julkisen avaimen salauksella tai symmetrisella salauksella.

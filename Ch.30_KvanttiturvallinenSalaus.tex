@@ -34,7 +34,13 @@ laskennallisissa ongelmissa ollaan kiinnostuneita löytämään jokin lyhin vekt
 
 Hilapohjaisessa salauksessa huomattavaa on se miten salauksen vahvuus perustuu ongelmien pahimman tapauksen mukaan (\emph{worst-case hardness}). Esimerkiksi nykyisissä salausjärjestelmissä käyettävää suurten alkulukujen tekijöihin jakamisen vaikeutta kuvataan keskimääräisen tapauksen mukaan (\emph{average-case hardness}). Tämä tarkoittaa käytännössä sitä, että alkulukujen tekijöihin jako on helppo laskennallinen ongelma, jos tekijät ovat esimerkiksi pieniä tai parillisia lukuja. Tekijöihin jako taas vaikeutuu, jos luvut ovat hyvin suuria. Tällaista ilmiöitä ei esiinny hilojen kanssa, että olisi jokin tietty jakauma mikä määrittelee onko ongelma laskennallisesti helppo vai vaikea.
 
-Hilapohjaisen salauksen hyviä puolia ovat muun muassa salauksen laskennan yksinkertaisuus, koska ne vaativat usein vain modulaariartimetiikkaa. Hiloihin perustuviin ongelmiin ei ole tällä hetkellä tiedossa olevia kvanttialgoritmeja mikä tekee siitä luonnollisesti oivallisen kvanttiturvallisen salausmenetelmän.
+Aluksi hilapohjaiset salausjärjestelmät olivat hyvin epäkäytännöllisiä niiden tehokkuuden ja suurten julkisten avainten kokojen takia. Tutkimuksissa on kuitenkin edistytty ja uranuurtaja tässä oli Regevin esittelemä variantti salausjärjestelmästä nimeltään \emph{LWE} (\emph{Learning With Errors}). Myöhemmin esiteltiin vielä optimoidumpi versio \emph{Ring-LWE} (\cite{8275352}).
+
+Hilapohjaisen salauksen hyviä puolia ovat muun muassa salaukseen tarvittavan laskennan yksinkertaisuus, koska ne vaativat usein vain modulaariartimetiikkaa. Tämä on eduksi silloin jos resursseja kuten muistia ja laskentatehoa on vain rajoitetusti kuten vaikka sulautetuissa järjestelmissä.
+
+Huonona puolena hilapohjaisessa salauksessa on se, että salatun viestin koko kasvaa noin 30-kertaiseksi verrattuna alkuperäiseen salaamattomaan viestiin. Esimerkiksi edellä mainittu \emph{Ring-LWE} kasvattaa 128-tavuisen salaamattoman viestin 4096-tavuiseksi. Nykyisissä julkisen avaimen salausjärjestelmissä salaamattoman ja salatun viestin koko on täysin sama (\cite{8275352}).
+
+Hiloihin perustuviin ongelmiin ei ole tällä hetkellä tiedossa olevia kvanttialgoritmeja mikä tekee siitä luonnollisesti oivallisen kvanttiturvallisen salausmenetelmän (\cite{regev2006lattice}).
 
 \subsection{Monimuuttujapohjainen salaus}
 Monimuuttujapohjainen salaus (\emph{multivariate-based cryptography}) on eräs kvanttiturvallisen salauksen muoto. Monimuuttujapohjainen salaus perustuu monta muuttujaa sisältävien yhtälöryhmien ratkaisun vaikeuteen (\cite{Ding2009}). Yhtälöryhmien yhtälöt ovat neliöllisiä eli epälineaarisia äärellisessä kunnassa.

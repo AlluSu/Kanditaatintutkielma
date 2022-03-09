@@ -2,13 +2,13 @@
 
 \section{Kvanttiturvalliset salausjärjestelmät}
 
-Seuraavaksi tutustumme muutamiin kvanttiturvallisiin salausjärjestelmiin. Mainittujen lisäksi on olemassa myös muita kvanttiturvallisia salausjärjestelmiä, mutta emme kuitenkaan tämän tutkielman laajuuden puitteissa perehdy aivan kaikkiin. Esimerkiksi emme käsittele elliptisiin käyriin perustuvia kvanttiturvallisia salausjärjestelmiä (\emph{Supersingular elliptic curve isogeny cryptography} tai joissain lähteissä \emph{isogeny-based cryptography}.)
+Seuraavaksi tutustumme muutamiin kvanttiturvallisiin salausjärjestelmiin. Mainittujen lisäksi on olemassa myös lähteistä riippuen muita kvanttiturvallisia salausjärjestelmiä, mutta emme kuitenkaan tämän tutkielman laajuuden puitteissa perehdy aivan kaikkiin. Esimerkiksi emme käsittele elliptisiin käyriin perustuvia kvanttiturvallisia salausjärjestelmiä (\emph{Supersingular elliptic curve isogeny cryptography} tai joissain lähteissä \emph{isogeny-based cryptography}.)
 
 %Viitteitä?
 
-Käsittelemme kvanttiturvallisista salausjärjestelmistä niiden idean ja toimintaperiaatteen sekä ominaisuuksia esimerkiksi suorituskyvyssä ja julkisen avaimen koossa. Näistä eri kvanttiturvallisista salausjärjestelmistä on olemassa useita eri algoritmeja ja variantteja, joilla saadaan esimerkiksi parempi suorituskyky, mutta isompi julkisen avaimen koko tai toisin päin. Kuitenkin kaikkien niiden toiminta pohjautuu tässä esitellyihin ideoihin.
+Käsittelemme kvanttiturvallisista salausjärjestelmistä niiden idean sekä yleisiä ominaisuuksia esimerkiksi suorituskyvyssä ja julkisen avaimen koossa. Näistä eri kvanttiturvallisista salausjärjestelmistä on olemassa ja implementoitu useita eri algoritmeja ja variantteja, joilla saadaan esimerkiksi parempi suorituskyky, mutta isompi julkisen avaimen koko tai toisin päin. Kuitenkin kaikkien niiden toiminta pohjautuu tässä esitellyihin ideoihin.
 
-Tällä hetkellä tutkitaan ja kehitetään useita eri kvanttiturvallisia salausjärjestelmiä. \emph{National Institute of Standards and Technology (NIST)} ylläpitää prosessia, jossa etsitään kvanttiturvallisia julkisen avaimen salausjärjestelmiä, joilla voitaisiin korvata esimerkiksi RSA kvanttitietokoneiden yleistyessä (\cite{alagic2020status}).
+Tällä hetkellä tutkitaan ja kehitetään useita eri kvanttiturvallisia salausjärjestelmiä. \emph{National Institute of Standards and Technology (NIST)} ylläpitää prosessia, jossa etsitään kvanttiturvallisia julkisen avaimen salausjärjestelmiä joista tulisi uusi kvanttiturvallinen standardi. NIST etsii ja tutkii esimerkiksi vaihtoehtoisia salausjärjestelmiä joilla voitaisiin korvata esimerkiksi RSA kvanttitietokoneiden yleistyessä (\cite{alagic2020status}).
 
 \subsection{Tiivistepohjainen salaus}
 Tiivistepohjainen salaus (\emph{hash-based cryptography}) on salausjärjestelmä, joka pohjautuu aiemmin mainittuihin tiivistefunktioihin. Tiivistepohjaista salausta voidaan käyttää kvanttiturvallisen digitaalisen allekirjoituksen luomiseen (\emph{hash-based digital signature}). Tiivistepohjaiset salausjärjestelmät ovat turvallisia kvanttitietokoneita vastaan niiden luonteen ja rakenteen takia. 
@@ -43,9 +43,9 @@ Huonona puolena hilapohjaisessa salauksessa on se, että salatun viestin koko ka
 Hiloihin perustuviin ongelmiin ei ole tällä hetkellä tiedossa olevia kvanttialgoritmeja mikä tekee siitä luonnollisesti oivallisen kvanttiturvallisen salausmenetelmän (\cite{regev2006lattice}).
 
 \subsection{Monimuuttujapohjainen salaus}
-Monimuuttujapohjainen salaus (\emph{multivariate-based cryptography}) on eräs kvanttiturvallisen salauksen muoto. Monimuuttujapohjainen salaus perustuu monta muuttujaa sisältävien yhtälöryhmien ratkaisun vaikeuteen (\cite{Ding2009}). Yhtälöryhmien yhtälöt ovat neliöllisiä eli epälineaarisia äärellisessä kunnassa.
+Monimuuttujapohjainen salaus (\emph{multivariate-based cryptography}) on eräs kvanttiturvallisen salauksen muoto. Monimuuttujapohjaista salausta käytetään monimuuttujapohjaisen julkisen avaimen salausjärjestelmän muodostamiseen (\emph{Multivariate public key cryptosystem}) (\cite{Ding2009}). Monimuuttujapohjainen salaus perustuu monta muuttujaa sisältävien yhtälöryhmien ratkaisun vaikeuteen. Yhtälöryhmien yhtälöt ovat neliöllisiä eli epälineaarisia äärellisessä kunnassa.
 
-Monimuuttujapohjaisessa julkisen avaimen salausjärjestelmässä julkinen avain on yhtälöryhmä neliöllisiä polynomeja, joissa on monta muuttujaa (\cite{8012305}).
+Monimuuttujapohjaisessa julkisen avaimen salausjärjestelmässä julkinen avain on yhtälöryhmä neliöllisiä polynomeja, joissa on monta muuttujaa pienessä äärellisessä kunnassa \emph{K}. Esimerkkinä (\cite{8012305}): 
 
     \begin{align*}
         p^{(1)}(x_{1}...,x_{n}) &= \sum_{i=1}^{n} p_{ij}^{(1)}x_{i}x_ {j}+\sum_{i=1}^{n}p_ {i}^{(1)}x_{i}+p_ {0}^{(1)} \\
@@ -54,10 +54,14 @@ Monimuuttujapohjaisessa julkisen avaimen salausjärjestelmässä julkinen avain 
         p^{(m)}(x_{1}...,x_{n}) &= \sum_{i=1}^{n} p_{ij}^{(m)}x_{i}x_ {j}+\sum_{i=1}^{n}p_ {i}^{(m)}x_{i}+p_ {0}^{(m)}
     \end{align*}
     
-Tällaisen salausjärjestelmän turvallisuus perustuu niin kutsuttuun \emph{MQ}-ongelmaan (\emph{Multivariate qaudratic polynomial problem}).
+Tällaisen julkisen avaimen salausjärjestelmän turvallisuus perustuu niin kutsuttuun \emph{MQ}-ongelmaan (\emph{Multivariate quadratic polynomial problem}).
 
-\emph{MQ}-ongelma: Olkoon \emph{m} neliöllistä polynomia $p^{(1)}(x), .., p^{(m)}(x)$ \emph{n}:n muuttujan joukossa $x_{1}, .., x_{n}$ kuten yllä. Löydä vektori $\Tilde{x}=(\Tilde{x_{1}} .., \Tilde{x_{n}})$ s.e $p^{1}(\Tilde{x})=...=p^{(m)}(\Tilde{x})=0$.
+\emph{MQ}-ongelma: Ratkaise yhtälöryhmä $p_{1}(x) = p_{2}(x) = ... = p_ {m}(x) = 0$, missä jokainen $p_{i}$ on neliöllinen joukossa $x = (x_{1}, ..., x_{n})$ (\cite{Ding2009}).
 
-\emph{MQ}-ongelma on todistettu NP-kovaksi ongelmaksi jokaisessa kunnassa ja sen uskotaan siten kestävän kvanttitietokoneita mikä tekee siitä kvanttiturvallisen.
+\emph{MQ}-ongelma on todistettu NP-kovaksi ongelmaksi jokaisessa kunnassa ja sen uskotaan siten olevan vaikea ongelma myös kvanttitietokoneille. Tähän perustuu monimuuttujapohjaisen julkisen avaimen salausjärjestelmän suojaus (\cite{8012305}).
 
-Monimuuttujapohjaisen salausjärjestelmän etuja on muun muassa nopeus, laskennallinen vaativuus ja lyhyet allekirjoitukset.
+Monimuuttujapohjaisessa salausjärjestelmässä haitallista on niiden tuottamien avaimien suuret koot (\cite{Ding2009}). Keskimäärin monimuuttujapohjaiset salausjärjestelmät luovat julkisen avaimen jonka koko on väliltä 10-100 kilotavua (\cite{8012305}). Esimerkiksi monimuuttujapohjainen julkisen avaimen salausjärjestelmä jossa on \emph{m} polynomia ja \emph{n} muuttujaa tuottaa julkisen avaimen jossa on $m(n+2)(n+1)/2$ termiä. \emph{Rainbow}, joka on monimuuttujapohjainen allekirjoittamiseen luotu järjestelmä, tuottaa julkisen avaimen joka on kooltaan yli 16 kilotavua. Nämä suuret avaintenkoot saattavat tuottaa ongelmia muun muassa sulautetuissa järjestelmissä tai järjestelmissä, joissa verkkoyhteydet ovat hyvin rajoittuneet ja jos avaimia pitäisi lähettää monta kertaa verkon yli.
+
+\emph{Rainbow} on yksi NIST:in tutkima ehdokas, josta voisi tulla uusi kvanttiturvallinen standardi allekirjoitusten tekoon. Tutkimusalueen alalla tulevaisuuden tutkimussuunnitelmiin kuuluu julkisen avaimen pienentämisen tutkiminen. Monimuuttujapohjaisen salauksen parissa on salausmenetelmiä, joiden kvanttiturvallisuutta ei ole rigöörisesti todistettu ja sieltä puuttuu formaalia teoriapohjaa (\cite{8012305}). 
+
+Monimuuttujapohjaisessa salausjärjestelmässä on myös paljon etuja. Monimuuttujapohjaiset salausjärjestelmät voidaan implementoida tehokkaiksi jolloin ne ovat nopeampia kuin muut kvanttiturvallisest salausjärjestelmät. Monimuuttujapohjaiset salausjärjestelmät vaativat kohtuullisesti laskentatehoa, jolloin sovelluskohteita voi löytyä IoT:n parista. Ne käyttävät ainoastaan aritmeettisia laskuoperaatioita kuten kertolaskua ja yhteenlaskua. Tällöin niitä voi hyödyntää laitteissa, joissa ei ole paljoa resursseja saatavilla, kuten esimerkiksi älykorteissa ja RFID-tunnisteissa. Monimuuttujapohjaiset allekirjoitukset ovat pituudeltaan hyvin lyhyitä verrattuna esimerkiksi klassisiin tai kvanttiturvallisiin allekirjoituksiin.

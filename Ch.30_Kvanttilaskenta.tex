@@ -1,0 +1,13 @@
+\chapter{Kvanttilaskenta}
+
+\section{Kvanttilaskenta ja kvanttitietokoneet}
+Klassisessa eli niin sanotussa tavallisessa tietokoneessa informaatio esitetään bitteinä ja yksi bitti on tiedon perusyksikkö (\cite{doi:10.1080/23742917.2016.1226650}). Yksittäinen bitti voi saada vain yhden diskreetin arvon kerrallaan ja näitä arvoja kuvataan yleensä arvoilla 0 ja 1. Bitti voi siis olla arvoltaan vuorostaan joko 0 tai 1. Klassisessa tietokoneessa näitä bittejä käsitellään loogisten porttien kautta.
+
+Kvanttitietokoneen laskennan perusyksikkö taas on kubitti eli kvanttibitti. Kubitti voi olla bitin tavoin myös kahdessa eri tilassa. Merkitään näitä tiloja symboleilla
+$\ket{0}$ ja $\ket{1}$.\footnote{Kvanttimekaniikassa notaatiota $\ket{}$ kutsutaan Diracin notaatioksi. Se on yleinen notaatio kvanttimekaniikassa tarkoittaen tilaa (\cite{nielsen2001quantum}).} Kubitti eroaa tavallisesta bitistä siten, että se voi olla tilojen $\ket{0}$ tai $\ket{1}$ sijaan niin sanotussa superpositiotilassa. Tämä tarkoittaa siis sitä, että mittauksen aikana kubitti voi olla arvoltaan 0 tai 1, mutta laskennan aikana se on yhtäaikaa sekä 0 että 1. Eli tilat $\ket{0}$ ja $\ket{1}$ voivat esiintyä yhtäaikaa. Kvanttitietokoneessa kubitteja käsittelee kvanttiportit kuten klassisessa tietokoneessa bittejä käsittelee loogiset portit.
+
+Esimerkiksi kolmella kubitilla laskentaa tekevä kvanttitietokone mahdollistaa 8 eri tilaa samanaikaisesti. Kolmella bitillä laskentaa tekevä klassinen tietokone mahdollistaa myös 8 eri tilaa, mutta vain yksi näistä kahdeksasta tilasta voi olla kerrallaan voimassa. Kvanttitietokoneen tehokkaamman laskentatehon mahdollistaa siis mahdollisuus suorittaa laskenta samanaikaisesti eli rinnakkain jokaiselle kubitin eri tilalle. Kvanttitietokone tarjoaa siis eksponentiaalisesti nopeamman laskentatehon, joka uhkaa muun muassa julkisen avaimen salausta.
+
+Nykypäivän kvanttitietokoneet ovat vielä kehitysvaiheessa. Ne vaativat suuren ja kalliin infrastruktuurin ympärilleen muun muassa jäähdytystä ja sähkömagneettiselta säteilyltä suojautumista varten. Kuitenkin tilanne oli aikoinaan samanlainen kun klassiset tietokoneet alkoivat ilmaantumaan. Tulevaisuudessa on siis odotettavissa, että kvanttitietokoneiden fyysinen koko ja vaatima infrastruktuuri tulee pienentymään.
+
+\section{Shorin algoritmi}

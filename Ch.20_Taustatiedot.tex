@@ -1,20 +1,19 @@
-\chapter{Kvanttilaskenta ja salausjärjestelmät\label{methods}}
+\chapter{Nykyiset salausjärjestelmät\label{methods}}
 
-\section{Nykyiset salausjärjestelmät}
 Käymme nyt läpi yleisimpiä salausjärjestelmiä, joihin jokainen tietojärjestelmien käyttäjä törmää nykypäivänä tiedostaen tai tiedostamattaan. Käymme läpi salausjärjestelmien ideat ja miten kvanttitietokoneet uhkaavat niitä.
 
 Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa avainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on vain \emph{k} bittiä pitkä bittijono, joka on muodostettu jonkin avainten luontiin tarkoitetun algoritmin avulla.
 
 Salausjärjestelmien jälkeen tutustumme kvanttilaskentaan ja sitä hyödyntäviin kvanttitietokoneisiin. Lisäksi tutustumme Shorin algoritmiin.
 
-\subsection{Symmetrinen salaus}
+\section{Symmetrinen salaus}
  Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}).
  
  Symmetrinen salaus on itsessään jo melko kvanttiturvallinen, koska niiden murtamiseen käytetään yleensä raa'an voiman (\emph{brute-force}) tekniikoita (\cite{mavroeidis2018impact}). Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä salausta käyttäviä järjestelmiä huomattavan tehokkaasti siten, että ne olisi uhattuna. 
  
  \emph{Groverin algoritmi} on kvanttialgoritmi, joka tuo neliöllisen nopeutuksen kvanttitietokoneella tehtyihin brute-force hyökkäyksiin. Kvanttitietokone joka käyttää Groverin algoritmia \emph{n}-bittisen salausavaimen purkamiseen laskee avaimen nopeudella $\sqrt{2^{n}} = 2^{n/2}$. Toisaalta nämä hyökkäykset voidaan estää esimerkiksi tuplaamalla salausavaimen käyttämä bittien määrä. Tällöin täytyy tehdä enemmän laskentaa ja laskuoperaatioita, joka vie taas enemmän aikaa. AES-128 ja AES-256 ovat kvanttiturvallisia lohkosalaukseen perustuvia salausjärjestelmiä. Tällöin 128-bittinen AES salaus antaisi 64-bittisen salauksen. 80-bittistä salausta pidetään turvallisena klassisella tietokoneella. Alalla vallitseva yleinen konsensus on, että AES-256 säilyy kvanttiturvallisena symmetrisena salausjärjestelmänä toistaiseksi moniksi vuosiksi eteenpäin nykyisellä kvanttitietokoneiden kehitystahdilla ja myös silloin kun kvanttitietokoneet ovat yleistyneet.
  
- \subsection{Julkisen avaimen salaus}
+ \section{Julkisen avaimen salaus}
  Epäsymmetrisessa eli julkisen avaimen salauksessa on käytössä kaksi avainta. Toinen on niin kutsuttu julkinen avain (\emph{public key}) ja toinen salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) (\cite{bellare2005introduction}). Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. Tässä tapauksessa purkuavain on salainen avain ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain, joka saa ja pitää olla julkisesti esillä. Viestin lähetys toimii nyt seuraavasti:
  
  \begin{enumerate}
@@ -44,28 +43,16 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
   
  Nämä edellä mainitut ongelmat ovat laskennallisesti hyvin haastavia ja niihin ei tunneta tehokkaita ja nopeita ratkaisuja isoilla syötteillä klassisilla tietokoneilla minkä takia niitä on hyvä käyttää salausjärjestelmissä. Toisaalta kummallekkin ongelmalle tunnetaan tehokkaita ratkaisuja, jotka voidaan suorittaa kvanttitietokoneella. Peter Shor esitti vuonna 1994 Shorin algoritmin jota käyttäen edellä mainitut vaikeat lukuteorian ongelmat voidaan ratkaista tehokkaasti eli polynomisessa ajassa kvanttitietokoneella (\cite{10.1007/978-3-319-11659-4_15}).
  
- \subsection{Tiivistefunktiot}
+ \section{Tiivistefunktiot}
  Tiivistefunktiot (\emph{hash-functions}) eli hashit  ovat funktioita, jotka ottavat mielivaltaisen pituisen merkkijonon \emph{M} ja muodostavat siitä aina tietyn mittaisen toisen merkkijonon \emph{MD}, jota kutsutaan tiivisteeksi. Formaalimmin tiivistefunktio on funktio:
  
  \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n >= 1.\] (\cite{sobti2012cryptographic}). Voi siis ajatella, että tällainen hash ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
  
  Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA1 ja MD-5. Esimerkiksi SHA1 tiivistefunktio muodostaa syötteestä aina 160 bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä \emph{hashaus} voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{F}.
  
- Tiivistefunktiot ovat myös jo itsessään melko kvanttiturvallisia (\cite{mavroeidis2018impact}). Tiivistefunktiot muodostavat lohkosalauksen tapaan tietyn mittaisen bittijonon tiivisteen muodossa. Groverin algoritmia ja syntymäpäiväparadoksia hyödyntäen on mahdollista tehdä hyökkäys. Jos Groverin algoritmilta tahtoo suojautua, tarvitaan \emph{n}-bitin suojaukseen \emph{3n}-bittiä pitkä bittijono. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot pitkillä bittijonoilla ovat kvanttiturvallisia.
+ Tiivistefunktiot ovat myös jo itsessään melko kvanttiturvallisia (\cite{mavroeidis2018impact}). Tiivistefunktiot muodostavat lohkosalauksen tapaan tietyn mittaisen bittijonon tiivisteen muodossa. Groverin algoritmia ja syntymäpäiväparadoksia hyödyntäen on mahdollista tehdä hyökkäys. Jos Groverin algoritmilta tahtoo suojautua, tarvitaan \emph{n}-bitin suojaukseen 3\emph{n}-bittiä pitkä bittijono. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot pitkillä bittijonoilla ovat kvanttiturvallisia.
  
- \subsection{Digitaalinen allekirjoitus}
+ \section{Digitaalinen allekirjoitus}
  Digitaalinen allekirjoitus (\emph{digital signature}) on menetelmä, jolla voidaan todentaa digitaalisia dokumentteja (\cite{1649003}). Sen toimintaperiaate on analoginen perinteisiin allekirjoituksiin verrattuna. Digitaalisella allekirjoituksella todennetaan muun muassa digitaalisen dokumentin datan eheys. Eheydellä voidaan tässä kontekstissa tarkoittaa esimerkiksi dokumentin päivämäärää tai sisältämää informaatiota.
  
  Digitaalisen allekirjoituksen luominen yhdistelee edellä mainittuja salausjärjestelmiä kuten tiivistefunktioita ja julkisen tai symmetrisen avaimen salausta. Digitaalinen allekirjoitus on käytännössä bittijono, jonka jokin digitaalisen allekirjoituksen luomiseen tarkoitettu algoritmi luo. Tämä allekirjoitus muodostetaan allekirjoitettavien dokumenttien ja jonkin vain viestin lähettäjän määrittelemän tiedon mukaan. Digitaalisen allekirjoituksen luominen koostuu yleensä kolmesta eri vaiheesta; salausavaimen generointi, digitaalisen allekirjoituksen generointi ja digitaalisen allekirjoituksen varmennus. Salausavain voidaan generoida jollain edellämainituista menetelmistä kuten julkisen avaimen salauksella tai symmetrisella salauksella.
-
-\section{Kvanttilaskenta ja kvanttitietokoneet}
-Klassisessa eli niin sanotussa tavallisessa tietokoneessa informaatio esitetään bitteinä ja yksi bitti on tiedon perusyksikkö (\cite{doi:10.1080/23742917.2016.1226650}). Yksittäinen bitti voi saada vain yhden diskreetin arvon kerrallaan ja näitä arvoja kuvataan yleensä arvoilla 0 ja 1. Bitti voi siis olla arvoltaan vuorostaan joko 0 tai 1. Klassisessa tietokoneessa näitä bittejä käsitellään loogisten porttien kautta.
-
-Kvanttitietokoneen laskennan perusyksikkö taas on kubitti eli kvanttibitti. Kubitti voi olla bitin tavoin myös kahdessa eri tilassa. Merkitään näitä tiloja symboleilla
-$\ket{0}$ ja $\ket{1}$.\footnote{Kvanttimekaniikassa notaatiota $\ket{}$ kutsutaan Diracin notaatioksi. Se on yleinen notaatio kvanttimekaniikassa tarkoittaen tilaa (\cite{nielsen2001quantum}).} Kubitti eroaa tavallisesta bitistä siten, että se voi olla tilojen $\ket{0}$ tai $\ket{1}$ sijaan niin sanotussa superpositiotilassa. Tämä tarkoittaa siis sitä, että mittauksen aikana kubitti voi olla arvoltaan 0 tai 1, mutta laskennan aikana se on yhtäaikaa sekä 0 että 1. Eli tilat $\ket{0}$ ja $\ket{1}$ voivat esiintyä yhtäaikaa. Kvanttitietokoneessa kubitteja käsittelee kvanttiportit kuten klassisessa tietokoneessa bittejä käsittelee loogiset portit.
-
-Esimerkiksi kolmella kubitilla laskentaa tekevä kvanttitietokone mahdollistaa 8 eri tilaa samanaikaisesti. Kolmella bitillä laskentaa tekevä klassinen tietokone mahdollistaa myös 8 eri tilaa, mutta vain yksi näistä kahdeksasta tilasta voi olla kerrallaan voimassa. Kvanttitietokoneen tehokkaamman laskentatehon mahdollistaa siis mahdollisuus suorittaa laskenta samanaikaisesti eli rinnakkain jokaiselle kubitin eri tilalle. Kvanttitietokone tarjoaa siis eksponentiaalisesti nopeamman laskentatehon, joka uhkaa muun muassa julkisen avaimen salausta.
-
-Nykypäivän kvanttitietokoneet ovat vielä kehitysvaiheessa. Ne vaativat suuren ja kalliin infrastruktuurin ympärilleen muun muassa jäähdytystä ja sähkömagneettiselta säteilyltä suojautumista varten. Kuitenkin tilanne oli aikoinaan samanlainen kun klassiset tietokoneet alkoivat ilmaantumaan. Tulevaisuudessa on siis odotettavissa, että kvanttitietokoneiden fyysinen koko ja vaatima infrastruktuuri tulee pienentymään.
-
-\subsection{Shorin algoritmi}

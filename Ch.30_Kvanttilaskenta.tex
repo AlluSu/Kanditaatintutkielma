@@ -13,9 +13,7 @@ Nykypäivän kvanttitietokoneet ovat vielä kehitysvaiheessa. Ne vaativat suuren
 \section{Shorin algoritmi}
 Kappaleessa kaksi eli nykyisistä salausjärjestelmistä puhuttaessa mainitsimme Shorin algoritmin. Vuonna 1994 Peter Shor esitteli Shorin algoritmin, jolla voidaan jakaa kokonaisluku tekijöihinsä kvanttitietokoneella tehokkaasti eli polynomisessa ajassa (\cite{hayward2008quantum}). Shorin algoritmin toiminta ja tehokkuus perustuu siihen kuinka se hyödyntää kvanttirinnakkaisuutta (\emph{quantum parallelism}). Tämä tarkoittaa siis sitä, että kvanttitietokoneella Shorin algoritmi suorittaa eksponentiaalisen määrän operaatioita yhdessä askeleessa. Klassisella tietokoneella sama laskenta veisi eksponentiaalisen määrän aikaa.
 
-
-
-Kuvaillaan seuraavaksi Shorin algoritmin toimintaa. Olkoon meillä funktio \[F(a) = x^{a} \mod n\] joka on jaksollinen kun $x$ on suhteellinen alkuluku\footnote{Kaksi lukua ovat keskenään suhteellisia alkulukuja silloin kun niiden suurin yhteinen tekijä on 1.} (\emph{coprime}) $n$:n kanssa ja $n$ on nyt luku jonka tahdomme jakaa tekijöihin. Koska $F(a)$ on jaksollinen, niin sillä on tällöin jokin jakso $r$. Shorin algoritmi siis yrittää löytää $r$:n eli funktion $F(a) = x^{a} \mod n$ jakson. Tiedetään, että $x^{0} \mod n = 1$, koska $x^0 = 1$ joten $x^{r} \mod n = 1$ ja $x^{2r} \mod n = 1$ ja niin edelleen. Siten voidaan johtaa:
+Shor huomasi, että Eulerin kehittämää tekijöihinjakoalgoritmia pystyttiin nopeuttamaan käyttäen kvanttirinnakkaisuutta apuna (\cite{doi:10.1080/23742917.2016.1226650}). Kuvaillaan seuraavaksi Eulerin algoritmin toimintaa (\cite{hayward2008quantum}). Olkoon meillä funktio \[F(a) = x^{a} \mod n\] joka on jaksollinen kun $x$ on suhteellinen alkuluku\footnote{ks. kappale 2.2.} $n$:n kanssa ja $n$ on nyt luku jonka tahdomme jakaa tekijöihin. Koska $F(a)$ on jaksollinen, niin sillä on tällöin jokin jakso $r$. Shorin algoritmi siis yrittää löytää $r$:n eli funktion $F(a) = x^{a} \mod n$ jakson. Tiedetään, että $x^{0} \mod n = 1$, koska $x^0 = 1$ joten $x^{r} \mod n = 1$ ja $x^{2r} \mod n = 1$ ja niin edelleen. Siten voidaan johtaa:
 
 \begin{align*}
     x^{r} \equiv 1 \mod n \\
@@ -27,9 +25,9 @@ ja jos $r$ on parillinen niin:
 
 \[(x^{r/2} - 1)(x^{r/2} + 1) \equiv 0 \mod n\]
 
-Nyt $(x^{r/2} - 1)(x^{r/2} + 1)$ on $n$:n eli luvun jonka haluamme jakaa tekijöihin monikerta. Joten jos $\lvert x^{r/2} \rvert$ ei ole 1, niin ainakin toisella $(x^{r/2} - 1), (x^{r/2} + 1)$ on sama tekijä kuin $n$:llä. Nyt laskemalla $syt(x^{r/2} - 1, n)$ ja $syt(x^{r/2} + 1, n)$ saadaan $n$:n tekijä\footnote{$syt$ = suurin yhteinen tekijä, ks. kappale 2.2}.
+Nyt $(x^{r/2} - 1)(x^{r/2} + 1)$ on $n$:n eli luvun jonka haluamme jakaa tekijöihin monikerta. Joten jos $\lvert x^{r/2} \rvert$ ei ole 1, niin ainakin toisella $(x^{r/2} - 1), (x^{r/2} + 1)$ on sama tekijä kuin $n$:llä. Nyt laskemalla $syt(x^{r/2} - 1, n)$ ja $syt(x^{r/2} + 1, n)$ saadaan $n$:n tekijä\footnote{ks. kappale 2.2}.
 
-Simuloidaan Shorin algoritmia pienellä syötteellä (\cite{doi:10.1080/23742917.2016.1226650}). Olkoon $n$ = 15.
+Simuloidaan nyt Eulerin algoritmia pienellä syötteellä (\cite{doi:10.1080/23742917.2016.1226650}). Olkoon $n$ = 15.
 
 \begin{enumerate}
     \item Valitaan suhteellinen alkuluku. Valitaan 11, koska $syt(11,15) = 1$.
@@ -57,4 +55,4 @@ Simuloidaan Shorin algoritmia pienellä syötteellä (\cite{doi:10.1080/23742917
     
 \end{enumerate}
 
-Ongelmana nyt on, että kun $n$ kasvaa hyvin suureksi, niin jakson $r$ selvittäminen funktiolla $F(a)$ käy hyvin hankalaksi. Klassisilla tietokoneilla tämän ratkaisemiseen käytetään apuna nopeita Fourier-muunnoksia (\emph{Fast-Fourier Transform, FFT}), mutta suurilla $n$:n arvoilla niiden laskeminen on hyvin epäkäytännöllistä. Tässä vaiheessa Shorin algoritmi tulee apuun. Shorin algoritmi ratkaisee jakson $r$ etsimisen hyvin tehokkaasti käyttäen apunaan kvanttirinnakkaisuutta. Muuten edellä esitelty tekijöihinjako-algoritmi toimii hyvin klassisella tietokoneella, mutta jakson $r$ määrittäminen on tehokkaampaa käyttäen kvanttitietokonetta ja Shorin algoritmia. 
+Ongelmana nyt on, että kun $n$ kasvaa hyvin suureksi, niin jakson $r$ selvittäminen funktiolla $F(a)$ käy hyvin hankalaksi. Klassisilla tietokoneilla tämän ratkaisemiseen käytetään apuna nopeita Fourier-muunnoksia (\emph{Fast-Fourier Transform, FFT}), mutta suurilla $n$:n arvoilla niiden laskeminen on hyvin epäkäytännöllistä. Tässä vaiheessa Shorin algoritmi tulee apuun. Shorin algoritmi ratkaisee jakson $r$ etsimisen hyvin tehokkaasti käyttäen apunaan kvanttirinnakkaisuutta. Jakson määrittäminen on ainut kohta algoritmissa, jossa tarvitaan kvanttitietokonetta ja missä kvanttilaskenta tuo huomattavaa etua. Muuten edellä esitelty tekijöihinjakoalgoritmi toimii hyvin klassisella tietokoneella, mutta jakson $r$ määrittäminen on tehokkaampaa käyttäen kvanttitietokonetta ja Shorin algoritmia. 

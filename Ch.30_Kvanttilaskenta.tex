@@ -25,17 +25,13 @@ joka on jaksollinen kun $x$ on suhteellinen alkuluku\footnote{ks. kappale 2.2.} 
     \end{split}
 \end{equation}
 Siten voidaan johtaa:
-
 \begin{align*}
     x^{r} \equiv 1 \mod n \\
     (x^{r/2})^{2} = x^{r} \equiv 1 \mod n \\
     (x^{r/2})^{2} - 1 \equiv 0 \mod n
 \end{align*}
-
 ja jos $r$ on parillinen niin:
-
 \[(x^{r/2} - 1)(x^{r/2} + 1) \equiv 0 \mod n\]
-
 Nyt $(x^{r/2} - 1)(x^{r/2} + 1)$ on $n$:n eli luvun jonka haluamme jakaa tekijöihin monikerta. Joten jos $\lvert x^{r/2} \rvert$ ei ole 1, niin ainakin toisella $(x^{r/2} - 1), (x^{r/2} + 1)$ on sama tekijä kuin $n$:llä. Nyt laskemalla $syt(x^{r/2} - 1, n)$ ja $syt(x^{r/2} + 1, n)$ saadaan $n$:n tekijä\footnote{ks. kappale 2.2}.
 
 Simuloidaan nyt Eulerin algoritmia pienellä syötteellä (\cite{doi:10.1080/23742917.2016.1226650}). Olkoon $n$ = 15 ja haluamme jakaa sen tekijöihin.

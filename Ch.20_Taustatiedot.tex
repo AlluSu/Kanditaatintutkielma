@@ -31,22 +31,23 @@ Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa salausavainta, 
 Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että salaus puretaan eri avaimella kuin millä se salataan.
  
   Julkisen avaimen salausjärjestelmien tarjoama suojaus perustuu tiettyihin vaikeisiin lukuteorian ongelmiin (\cite{mavroeidis2018impact}). Monissa ongelmissa kyse on matemaattisista funktioista, jotka on helppo laskea yhteen suuntaan, mutta niiden peruuttaminen tai käänteisoperaatio taas on hyvin hankalaa. Näitä ongelmia ovat muun muassa suurten alkulukujen tekijöihinjako (\emph{Integer Factorization Problem}) sekä niin kutsuttu diskreetin logaritmin ongelma (\emph{Discrete Logarithm Problem, DLP}).
-  Yksi ensimmäisiä ja tänäkin päivänä käytetyimpiä julkisen avaimen salausjärjestelmiä on RSA, joka on nimetty keksijöidensä (Rivest, Shamir ja Adleman) mukaan (\cite{montgomery1994survey}). RSA:n tarjoama suojaus perustuu suurten alkulukujen tekijöihin jakoon. RSA:n avainpari luodaan seuraavasti  (\cite{doi:10.1080/23742917.2016.1226650}):
+  Yksi ensimmäisiä ja tänäkin päivänä käytetyimpiä julkisen avaimen salausjärjestelmiä on RSA, joka on nimetty keksijöidensä (Rivest, Shamir ja Adleman) mukaan (\cite{montgomery1994survey}). RSA:n tarjoama suojaus perustuu suurten alkulukujen tekijöihin jakoon. RSA:n avainpari luodaan seuraavasti  (\cite{10.1145/359340.359342}):
   
   \begin{enumerate}
   
-      \item Valitaan kaksi suurta alkulukua \emph{p} ja \emph{q}, missä $p \neq q$.
+      \item Valitaan kaksi suurta satunnaista alkulukua \emph{p} ja \emph{q}, siten että $p \neq q$. Nämä luvut $p$ ja $q$ on pidettävä salassa.
       
-      \item Lasketaan $n = pq$.
+      \item Lasketaan $n = pq$. Tästä saatava $n$ saa olla julkisesti esillä.
       
-      \item Lasketaan $\phi(n)\footnote{$\phi(n)$ on Eulerin $\phi$-funktio (\emph{Euler's totient}), joka kertoo montako $k \leq n$ kokonaislukua löytyy, jotka ovat \emph{n}:n kanssa suhteellisia alkulukuja (\cite{lehmer1932euler}). Kaksi alkulukua ovat suhteellisia toistensa suhteen (\emph{coprime}) kun niiden suurin yhteinen tekijä on 1 (\cite{hayward2008quantum}). } = \phi(p)\phi(q) = (p-1)(q-1)$.  Laskutoimituksesta saadaan salainen avain.
+      \item Valitaan jokin suuri satunnainen kokonaisluku $d$ siten että,
+      \[syt(d, (p-1)(q-1)) = 1\]
+      Tarkemmin sanottuna $d$ ja $(p-1)(q-1)$ ovat nyt keskenään suhteellisia alkulukuja (\emph{coprime} tai \emph{relatively prime}). Tämä tarkoittaa sitä, että niiden suurin yhteinen tekijä eli suurin kokonaisluku joka jakaa sekä $d$:n että $(p-1)(q-1)$:n on 1.
       
-      \item Valitaan kokonaisluku \emph{e} siten että $1 < e < \phi(n)$ ja $syt(e, \phi(n))\footnote{\emph{Suurin yhteinen tekijä} eli suurin kokonaisluku joka jakaa \emph{e}:n sekä $\phi(n)$ (\cite{doi:10.1137/S0036144598347011})} = 1$.
+      \item Lasketaan $e$, joka on siis $d$:n käänteisluku
+      \[e d \equiv 1 \pmod{(p-1) (q-1)}\]
       
-      \item Lasketaan $d$, jolle pätee $de \equiv 1 \mod \phi(n)$.
-  
   \end{enumerate}
-  Nyt siis julkinen avain (\emph{n}, \emph{e}) koostuu siis jakojäännöksestä \emph{n} ja salauseksponentista (\emph{encryption exponent}) \emph{e}. Salainen avain (\emph{n}, \emph{d}) koostuu jakojäännöksestä \emph{n} ja purkueksponentista (\emph{decryption exponent}) \emph{d}.
+  Salausavain on nyt pari ($e$,$n$) ja purkuavain on nyt pari ($d$,$n$).
   
  Diskreetin logaritmin ongelmassa täytyy löytää jokin kokonaisluku 
  $r$ siten että

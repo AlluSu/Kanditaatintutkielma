@@ -5,7 +5,7 @@ Käymme nyt läpi yleisimpiä salausjärjestelmiä, joihin jokainen tietojärjes
 Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa salausavainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on vain \emph{k} bittiä pitkä bittijono, joka on muodostettu jonkin salausavainten luontiin tarkoitetun algoritmin avulla.
 
 \section{Symmetrinen salaus}
- Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}). TÄHÄN VIITE ALKUPERÄISEEN PAPERIIN
+ Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}) (\cite{117146}). AES jakaa datan 128 bittiä pitkiin lohkoihin ja käyttää 128, 192 ja 256 bittisiä salausavaimia.
  
  Symmetrinen salaus on itsessään jo melko kvanttiturvallinen, koska niiden murtamiseen käytetään yleensä raa'an voiman (\emph{brute-force}) tekniikoita (\cite{mavroeidis2018impact}). Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä salausta käyttäviä järjestelmiä huomattavan tehokkaasti siten, että ne olisi uhattuna muuttua turvattomiksi. Kuitenkin \emph{Groverin algoritmia} hyödyntämällä on mahdollista nopeuttaa kvanttitietokoneella tehtyjä brute-force hyökkäyksiä.
  
@@ -47,12 +47,21 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
       \[e d \equiv 1 \pmod{(p-1) (q-1)}\]
       
   \end{enumerate}
-  Salausavain on nyt pari ($e$,$n$) ja purkuavain on nyt pari ($d$,$n$).
+  Salausavain on nyt pari positiivisia kokonaislukuja ($e$, $n$). Purkuavain on pari positiivisia kokonaislukuja ($d$, $n$).
   
- Diskreetin logaritmin ongelmassa täytyy löytää jokin kokonaisluku 
- $r$ siten että
- \[g^{r} = x \mod p\]
- (\cite{mavroeidis2018impact}). Esimerkiksi julkisen avaimen salausjärjestelmät kuten Diffie-Hellman ja elliptisen käyrän salaus (\emph{Elliptic Curve Cryptography, ECC}) hyödyntävät tätä. TÄHÄN DISKREETTIIN LOGARITMIIN LÄHTEEKSI OMA PAPERI
+ Esitellään seuraavaksi diskreetin logaritmin ongelma. Olkoon meillä jokin äärellinen kunta $GF$($q$), jossa on $q$ alkiota (\cite{1055638}). Olkoon
+ \begin{equation}
+     \label{eq10}
+     Y = \alpha^{X} \mod q, \; \text{jollekkin} \; 1 \leq X \leq q-1
+ \end{equation}
+ missä $\alpha$ on jokin määrätty alkio $GF$($q$):sta. Yhtälö voidaan muuttaa muotoon siten, että ratkaistaan $X$ 
+ \begin{equation}
+     \label{eq11}
+     X = \log_{\alpha} Y \mod q, \; \text{jollekkin} \; 1 \leq Y \leq q-1
+ \end{equation}
+ Nyt siis $Y$:n selvittäminen $X$:stä on helppoa ja vaatii enimmillään $2 \times \log_{2}q$ kertolaskuoperaatiota. Toisaalta $X$:n selvittäminen $Y$:stä ei ole helppoa ja vaatii parhailla algoritmeilla $q^{1/2}$ kertolaskuoperaatiota.
+ 
+ Esimerkiksi julkisen avaimen salausjärjestelmät kuten Diffie-Hellman ja elliptisen käyrän salaus (\emph{Elliptic Curve Cryptography, ECC}) hyödyntävät tätä (\cite{mavroeidis2018impact}).
  
  Edellä mainitut suurien kokonaislukujen tekijöihinjako ja diskreetin logaritmin löytäminen ovat ovat laskennallisesti hyvin haastavia ongelmia ja niihin ei tunneta tehokkaita ja nopeita ratkaisuja isoilla syötteillä klassisilla tietokoneilla. Siten niillä onkin hyviä sovelluskohteita salausjärjestelmien parissa. Toisaalta kummallekkin ongelmalle tunnetaan tehokkaita ratkaisuja, jotka voidaan suorittaa kvanttitietokoneella. Peter Shor esitti vuonna 1994 Shorin algoritmin jota käyttäen edellä mainitut vaikeat lukuteorian ongelmat voidaan ratkaista tehokkaasti eli polynomisessa ajassa kvanttitietokoneella. Käsittelemme Shorin algoritmia myöhemmin kappaleessa 3.2 kvanttilaskennan yhteydessä.
  

@@ -1,9 +1,9 @@
 \chapter{Kvanttiturvallinen salaus\label{results}}
-Seuraavaksi tutustumme muutamiin kvanttiturvallisiin salausmenetelmiin. Näitä salausmenetelmiä ovat koodipohjainen, hilapohjainen ja monimuuttujapohjainen. Edellä mainittujen lisäksi on olemassa lähteistä riippuen muitakin salausmenetelmiä, mutta emme kuitenkaan tämän tutkielman laajuuden puitteissa perehdy aivan kaikkiin. Esimerkiksi emme käsittele elliptisiin käyriin perustuvia kvanttiturvallisia salausmenetelmiä (\emph{isogeny-based cryptography\footnote{Joissain lähteissä \emph{supersingular elliptic curve isogeny cryptography}}}) emmekä tiivistepohjaista salausta (\emph{hash-based cryptography}).
+Seuraavaksi tutustumme muutamiin kvanttiturvallisiin salausmenetelmiin. Nämä salausmenetelmät ovat koodipohjainen, hilapohjainen ja monimuuttujapohjainen. Edellä mainittujen lisäksi on olemassa lähteistä riippuen muitakin salausmenetelmiä, mutta emme kuitenkaan tämän tutkielman laajuuden puitteissa perehdy aivan kaikkiin. Emme esimerkiksi käsittele elliptisiin käyriin perustuvia kvanttiturvallisia salausmenetelmiä (\emph{isogeny-based cryptography\footnote{Joissain lähteissä \emph{supersingular elliptic curve isogeny cryptography}}}) emmekä tiivistepohjaista salausta (\emph{hash-based cryptography}).
 
 Käsittelemme kvanttiturvallisista salausmenetelmistä niiden idean sekä yleisiä ominaisuuksia muun muassa suorituskyvyssä ja julkisen avaimen koossa. Näitä eri kvanttiturvallisia salausmenetelmiä käyttäviä kvanttiturvallisia salausjärjestelmiä on implementoitu useita erilaisia. Näistä implementoiduista salausjärjestelmistä on taas monia erilaisia variantteja. Varianttien välillä on eroja, esimerkiksi joillain saadaan parempi suorituskyky, mutta vastapainona isompi julkisen avaimen koko tai toisin päin. Kuitenkin kaikkien niiden toiminta pohjautuu tässä esitellyihin ideoihin.
 
-Tällä hetkellä tutkitaan ja kehitetään useita eri kvanttiturvallisia salausjärjestelmiä. \emph{National Institute of Standards and Technology (NIST)} ylläpitää prosessia, jossa etsitään kvanttiturvallisia julkisen avaimen salausjärjestelmiä joista tulisi uusi kvanttiturvallinen standardi. NIST etsii ja tutkii vaihtoehtoisia salausjärjestelmiä joilla voitaisiin korvata esimerkiksi RSA kvanttitietokoneiden yleistyessä (\cite{alagic2020status}).
+Tällä hetkellä tutkitaan ja kehitetään useita eri kvanttiturvallisia salausjärjestelmiä. \emph{National Institute of Standards and Technology (NIST)} ylläpitää prosessia, jossa etsitään kvanttiturvallisia julkisen avaimen salausjärjestelmiä, joista tulisi uusi kvanttiturvallinen standardi (\cite{alagic2020status}).
 
 \section{Koodipohjainen salaus}
 Koodipohjainen salaus (\emph{code-based cryptography}) perustuu Robert McEliecen artikkeliin \emph{A Public-Key Cryptosystem Based On Algebraic Coding Theory} vuodelta 1978 (\cite{8012331}). McEliecen esittelemässä salausjärjestelmässä salattavaa viestiä toistetaan monta kertaa putkeen, jonka jälkeen siihen lisätään tahallisesti virheitä. Näitä tahallaan lisättyjä virheitä kutsutaan virheenkorjauskoodeiksi (\emph{error-correction codes}). Tarkemmin ottaen McEliecen salausjärjestelmä käyttää lineaarisia virheenkorjauskoodeja, tarkennettuna binäärisia Goppa-koodeja.
@@ -62,20 +62,3 @@ Tällaisen julkisen avaimen salausjärjestelmän turvallisuus perustuu niin kuts
 Monimuuttujapohjaisissa salausjärjestelmissä huonona puolena on niiden tuottamien avainten suuret koot. Keskimäärin monimuuttujapohjaiset salausjärjestelmät luovat julkisen avaimen jonka koko on väliltä 10--100 kilotavua. \emph{Rainbow} on yksi NIST:in tutkima ehdokas, josta voisi tulla uusi kvanttiturvallinen standardi allekirjoitusten tekoon. (\cite{alagic2020status}). \emph{Rainbow} on monimuuttujapohjainen allekirjoittamiseen luotu järjestelmä, joka tuottaa julkisen avaimen joka on kooltaan yli 16 kilotavua (\cite{Ding2009}). Nämä suuret avainten koot saattavat tuottaa ongelmia muun muassa sulautetuissa järjestelmissä tai järjestelmissä, joissa verkkoyhteydet ovat hyvin rajoittuneet ja missä avaimia pitäisi lähettää monta kertaa verkon yli (\cite{8012305}). Lisäksi monimuuttujapohjaisen salauksen parissa on salausjärjestelmiä, joiden kvanttiturvallisuutta ei ole formaalisti todistettu ja sieltä puuttuu formaalia teoriapohjaa. Kuitenkin käytännössä useat monimuuttujapohjaiset salausjärjestelmät ovat pysyneet turvallisina erilaisia hyökkäyksiä vastaan, vaikka formaali teoriapohja puuttuu.
 
 Monimuuttujapohjaisessa salausjärjestelmässä on myös paljon hyviä puolia. Monimuuttujapohjaiset salausjärjestelmät voidaan implementoida tehokkaiksi, jolloin ne ovat nopeampia kuin muut kvanttiturvallisest salausjärjestelmät. Monimuuttujapohjaiset salausjärjestelmät vaativat kohtuullisesti laskentatehoa, jolloin sovelluskohteita voi löytyä IoT:n parista. Ne käyttävät ainoastaan aritmeettisia laskuoperaatioita kuten kertolaskua ja yhteenlaskua. Tällöin niitä voi hyödyntää laitteissa, joissa ei ole paljoa resursseja saatavilla, kuten esimerkiksi sirukorteissa ja RFID-teknologiaa käyttävissä siruissa. Lisäksi monimuuttujapohjaiset allekirjoitusmenetelmät luovat pituudeltaan hyvin lyhyitä allekirjoituksia verrattuna esimerkiksi klassisiin tai kvanttiturvallisiin allekirjoituksiin.
-
-\section{Kvanttiturvallisten salausjärjestelmien vertailua}
-Vertaillaan seuraavaksi tekemiämme havaintoja:
-
-\begin{tabular}{ |p{4cm}||p{4cm}|p{4cm}|p{4cm}|p{4cm}|  }
- \hline
- \multicolumn{5}{|c|}{Kvanttiturvalliset salausmenetelmät} \\
- \hline
- Menetelmä&Hyviä puolia&Huonoja puolia&Mihin turvallisuus perustuu&Esimerkki salausjärjestelmästä\\
- \hline
- Koodipohjainen & Laskennallinen tehokkuus & Suuret avainten koot \\
- \hline
- Hilapohjainen & Laskennallinen tehokkuus & Salatun viestin koko kasvaa suureksi \\
- \hline
- Monimuuttujapohjainen & Laskennallinen tehokkuus & Suuret avainten koot \\
- \hline
-\end{tabular}

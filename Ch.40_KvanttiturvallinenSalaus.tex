@@ -56,3 +56,19 @@ Tällaisen julkisen avaimen salausjärjestelmän turvallisuus perustuu niin kuts
 Monimuuttujapohjaisissa salausjärjestelmissä huonona puolena on niiden tuottamien avainten suuret koot. Keskimäärin monimuuttujapohjaiset salausjärjestelmät luovat julkisen avaimen, jonka koko on väliltä 10--100 kilotavua. \emph{Rainbow} on yksi NIST:in tutkima ehdokas, josta voisi tulla uusi kvanttiturvallinen standardi allekirjoitusten tekoon. (\cite{alagic2020status}). \emph{Rainbow} on monimuuttujapohjainen allekirjoittamiseen luotu järjestelmä, joka tuottaa julkisen avaimen, joka on kooltaan yli 16 kilotavua (\cite{Ding2009}). Nämä suuret avainten koot saattavat tuottaa ongelmia muun muassa sulautetuissa järjestelmissä tai järjestelmissä, joissa verkkoyhteydet ovat hyvin rajoittuneet ja jossa avaimia pitäisi lähettää monta kertaa verkon yli (\cite{8012305}). Lisäksi monimuuttujapohjaisen salauksen parissa on salausjärjestelmiä, joiden kvanttiturvallisuutta ei ole formaalisti todistettu ja sieltä puuttuu formaalia teoriapohjaa. Kuitenkin käytännössä useat monimuuttujapohjaiset salausjärjestelmät ovat pysyneet turvallisina erilaisia hyökkäyksiä vastaan, vaikka formaali teoriapohja puuttuu.
 
 Monimuuttujapohjaisessa salausjärjestelmässä on myös paljon hyviä puolia. Monimuuttujapohjaiset salausjärjestelmät voidaan implementoida tehokkaiksi, jolloin ne ovat nopeampia kuin muut kvanttiturvallisest salausjärjestelmät. Monimuuttujapohjaiset salausjärjestelmät vaativat kohtuullisesti laskentatehoa, jolloin sovelluskohteita voi löytyä IoT:n parista. Ne käyttävät ainoastaan aritmeettisia laskuoperaatioita kuten kertolaskua ja yhteenlaskua. Tällöin niitä voi hyödyntää laitteissa, joissa ei ole paljoa resursseja saatavilla, kuten esimerkiksi sirukorteissa ja RFID-teknologiaa käyttävissä siruissa. Lisäksi monimuuttujapohjaiset allekirjoitusmenetelmät luovat pituudeltaan hyvin lyhyitä allekirjoituksia verrattuna esimerkiksi klassisiin tai muihin kvanttiturvallisiin allekirjoituksiin.
+
+\section{Kvanttiturvallisten salausjärjestelmien vertailua}
+Yhteenveto menetelmistä taulukkomuodossa.
+\begin{table}[h]
+\caption{Kvanttiturvallisia salausmenetelmiä}
+\label{tab:pqc}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Menetelmä             & Hyviä puolia                                                                                                                                     & Huonoja puolia                                                                                                                                                          & Esimerkki algoritmi \\ \hline
+Koodipohjainen        & \begin{tabular}[c]{@{}l@{}}Laskennallisesti yksinkertainen ja tehokas\\ Kestänyt aikaa ja tarkastelua, jonka takia ymmärretty hyvin\end{tabular} & \begin{tabular}[c]{@{}l@{}}Suuri julkisen avaimen koko\\ Ei sovellu käytännössä allekirjoitusten tekoon\\ Kvanttiturvallisuuden formaali teoriapohja uupuu\end{tabular} & Classisc McEliece   \\ \hline
+Hilapohjainen         & Laskennallisesti yksinkertainen ja tehokas                                                                                                       & Salatun viestin koko kasvaa n. 30-kertaiseksi                                                                                                                           & NTRU                \\ \hline
+Monimuuttujapohjainen & \begin{tabular}[c]{@{}l@{}}Laskennallisesti yksinkertainen ja tehokas\\ Lyhyet allekirjoitukset\end{tabular}                                     & \begin{tabular}[c]{@{}l@{}}Suuri julkisen avaimen koko\\ Kvanttiturvallisuuden formaali teoriapohja uupuu\end{tabular}                                                  & Rainbow             \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}

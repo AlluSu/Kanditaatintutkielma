@@ -2,7 +2,7 @@
 
 Käymme nyt läpi yleisimpiä salausjärjestelmiä, joihin jokainen tietojärjestelmien käyttäjä törmää nykypäivänä tiedostaen tai tiedostamattaan. Käymme läpi salausjärjestelmien ideat ja miten kvanttitietokoneet uhkaavat niitä.
 
-Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa salausavainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on vain \emph{k} bittiä pitkä bittijono, joka on muodostettu jonkin salausavainten luontiin tarkoitetun algoritmin avulla.
+Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa salausavainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on \emph{k} bittiä pitkä bittijono, joka on muodostettu jonkin salausavainten luontiin tarkoitetun algoritmin avulla.
 
 \section{Symmetrinen salaus}
  Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}) (\cite{117146}). AES jakaa datan 128 bittiä pitkiin lohkoihin ja käyttää 128, 192 ja 256 bittisiä salausavaimia.

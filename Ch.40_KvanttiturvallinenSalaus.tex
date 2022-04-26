@@ -37,7 +37,7 @@ Huonona puolena hilapohjaisessa salauksessa on se, että salatun viestin koko ka
 
 Hiloihin perustuviin ongelmiin ei ole tällä hetkellä tiedossa olevia kvanttialgoritmeja, jotka olisivat tehokkaampia kuin klassisella tietokoneella suoritettavat mikä tekee siitä hyvän kvanttiturvallisen salausmenetelmän (\cite{regev2006lattice}). NIST:in standardointiprosessissa kolme neljästä finalistista ovat hilapohjaiseen salaukseen perustuvia (\cite{alagic2020status}). Yksi näistä finalisteista on nimeltään \emph{NTRU}, joka on osoittautunut tehokkaaksi ja turvalliseksi salausjärjestelmäksi. Muihin hilapohjaisiin finalisteihin verrattuna NTRU vaikuttaa parhaalta vaihtoehdolta.
 
-Tulevaisuuden näkymiin hilapohjaisen salauksen saralla kuuluu tehokkaampien salausjärjestelmien implementointi ja salausalgoritmien paranteleminen (\cite{8275352}).
+Tulevaisuuden tutkimustyöhön hilapohjaisen salauksen saralla kuuluu tehokkaampien salausjärjestelmien implementointi, olemassa olevien salausalgoritmien paranteleminen ja salausjärjestelmiin kohdistuvien hyökkäysmallien laatiminen (\cite{8275352}).
 
 \section{Monimuuttujapohjainen salaus}
 Monimuuttujapohjainen salaus (\emph{multivariate-based cryptography}) on kvanttiturvallisen salauksen muoto, joka perustuu monta muuttujaa sisältävien yhtälöryhmien ratkaisun vaikeuteen (\cite{Ding2009}). Yhtälöryhmien yhtälöt ovat neliöllisiä eli epälineaarisia äärellisessä kunnassa.
@@ -62,20 +62,4 @@ Monimuuttujapohjaisissa salausjärjestelmissä huonona puolena on niiden tuottam
 Tulevaisuudessa odotetaan, että monimuuttujapohjaisten julkisen avaimen salausjärjestelmien tutkiminen siirtyy uudelle tasolla seuraavan vuosikymmenen aikana (\cite{Ding2009}). Käytännön sovelluksien kannalta kriittisimmät ongelmat ovat julkisen avaimen koon pienentäminen ja yleisesti kvanttiturvallisuuden parantaminen käyttäen eri lähestymistapoja ja uusia matemaattisia ideoita.
 
 \section{Kvanttiturvallisen salauksen tulevaisuus}
-Vaikka suuren koko luokan tehokkaat kvanttitietokoneet eivät vielä ole arkipäivää, tulisi kvanttiturvalliseen salaukseen varautua jo nyt. Kvanttitietokoneiden myötä on tullut uusi uhka nimeltään takautuva salauksen purku (\emph{Retrospective decryption}). Tämä tarkoittaa sitä, että joku hyökkäävä taho voi kerätä salattua dataa ja myöhemmin kvanttitietokoneiden yleistyessä purkaa datan. (\cite{ad93d053a85c4acebdd49cbe1a75d6bd}.)
-
-\section{Kvanttiturvallisten salausjärjestelmien vertailua}
-Yhteenveto menetelmistä taulukkomuodossa.
-\begin{table}[h]
-\caption{Kvanttiturvallisia salausmenetelmiä}
-\label{tab:pqc}
-\begin{adjustbox}{width=\textwidth}
-\begin{tabular}{|l|l|l|l|}
-\hline
-Menetelmä             & Hyviä puolia                                                                                                                                     & Huonoja puolia                                                                                                                                                          & Esimerkki algoritmi \\ \hline
-Koodipohjainen        & \begin{tabular}[c]{@{}l@{}}Laskennallisesti yksinkertainen ja tehokas\\ Kestänyt aikaa ja tarkastelua, jonka takia ymmärretty hyvin\end{tabular} & \begin{tabular}[c]{@{}l@{}}Suuri julkisen avaimen koko\\ Ei sovellu käytännössä allekirjoitusten tekoon\\ Kvanttiturvallisuuden syvempi formaali teoriapohja uupuu\end{tabular} & Classisc McEliece   \\ \hline
-Hilapohjainen         & Laskennallisesti yksinkertainen ja tehokas                                                                                                       & Salatun viestin koko kasvaa n. 30-kertaiseksi                                                                                                                           & NTRU                \\ \hline
-Monimuuttujapohjainen & \begin{tabular}[c]{@{}l@{}}Laskennallisesti yksinkertainen ja tehokas\\ Lyhyet allekirjoitukset\end{tabular}                                     & \begin{tabular}[c]{@{}l@{}}Suuri julkisen avaimen koko\\ Kvanttiturvallisuuden syvempi formaali teoriapohja uupuu\end{tabular}                                                  & Rainbow             \\ \hline
-\end{tabular}
-\end{adjustbox}
-\end{table}
+Kappaleessa 3 puhuimme miten nykypäivän kvanttitietokoneet ovat vielä kehitysvaiheessa ja kuinka Shorin algoritmia käyttäen ei ole vielä saatu suuria kokonaislukuja jaettua tekijöihin. Vaikka suuren kokoluokan tehokkaat kvanttitietokoneet eivät vielä ole arkipäivää, tulisi kvanttiturvalliseen salaukseen kiinnittää huomiota jo nyt (\cite{ad93d053a85c4acebdd49cbe1a75d6bd}). Esimerkiksi joku pahantahtoinen hyökkääjä voisi kerätä salattua dataa talteen ja odottaa suuren kokoluokan kvanttitietokoneiden yleistymistä rauhassa tämän datan kanssa. Myöhemmin kvanttitietokoneiden yleistyessä, hyökkääjä voisi purkaa salatun datan käyttäen apunaan kvanttitietokonetta ja päästä käsiksi dataan. Tällaista hyökkäystä kutsutaan retrospektiiviseksi purkamiseksi (\emph{Retrospective decryption}).

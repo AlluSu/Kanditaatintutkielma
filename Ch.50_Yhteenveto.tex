@@ -1,6 +1,12 @@
 \chapter{Yhteenveto\label{conclusions}}
-Puhu mitä työssä on tehty!
+% Puhu mitä työssä on tehty!
 
-Tässä tutkielmassa tutustuimme nykyisiin salausjärjestelmiin, kvanttilaskentaan ja Shorin algoritmiin sekä kvanttiturvallisiin salausjärjestelmiin, jotka pystyvät vastustamaan Shorin algoritmia.
+Tutkielmassa tutustuimme pintapuolisesti nykyisiin salausjärjestelmiin ja niiden kvanttiturvallisuuten, kvanttilaskentaan ja Shorin algoritmiin sekä kvanttiturvallisiin salausjärjestelmiin, joihin Shorin algoritmia ei voi soveltaa.
 
-Ensiksi tutustuimme nykyisiin salausjärjestelmiin, joihin tietokonetta ja internetiä käyttäessä törmää nykyään väistämättä. Käsittelimme symmetrisen salauksen, tiivistefunktiot, epäsymmetrisen eli julkisen avaimen salauksen sekä digitaaliset allekirjoitukset.
+Kvanttitietokoneiden kehittyessä kvanttiturvallinen salaus on tullut ajankohtaiseksi. Kvanttitietokoneiden mahdollistama eksponentiaalinen laskentateho klassisiin tietokoneisiin verrattuna uhkaa nykyisiä julkisen avaimen salausjärjestelmiä. Etenkin kvanttirinnakkaisuutta hyödyntävä Shorin algoritmi ratkaisee klassiselle tietokoneelle vaikeat laskennalliset ongelmat helposti. Esimerkiksi yksi ensimmäisiä ja käytetyimpiä julkisen avaimen salausjärjestelmiä, RSA, käyttää suurten kokonaislukujen tekijöihinjakoa salauksessaan minkä Shorin algoritmi voi murtaa tehokkaasti.
+
+Tutkielmassa keskityimme kolmeen eri kvanttiturvalliseen salausmenetelmään; koodipohjaiseen, hilapohjaiseen ja monimuuttujapohjaiseen salaukseen. Jokaisessa menetelmässä oli omat hyvät ja huonot puolensa. Jokainen salausmenetelmä todettiin laskennallisesti tehokkaaksi ja nopeaksi, mutta monimuuttujapohjainen salaus todettiin kaikista kolmesta nopeimmaksi. Koodipohjaisesta ja monimuuttujapohjaisesta salauksesta todettiin huonona puolena isot julkisen avaimen koot, jotka rajoittavat näiden salausjärjestelmien käyttöä esimerkiksi sulautetuissa järjestelmissä. Koodipohjaisesta ja hilapohjaisesta salauksesta todettiin, että niihin ei ole löydetty kvanttialgoritmeja, jotka tekisivät ne turvattomiksi.
+
+Vaikka suuren kokoluokan kvanttitietokoneet eivät juuri tällä hetkellä ole suuri uhka tietoturvalle niin kvanttiturvalliseen salaukseen pitäisi varautua jo nyt. Retrospektiivisellä purkamisella tarkoitetaan hyökkäystä, missä hyökkääjä kerää salattua tietoa talteen tulevaisuutta varten ja purkaa salatun tiedon jälkeenpäin kun löydetään keino purkaa salaus.
+
+Tulevaisuudessa odotetaan, että kvanttiturvallisia salausmenetelmiä saadaan kehitettyä eteenpäin. National Institute of Standards and Technology suorittaa kvanttiturvallisten julkisen avaimen salausjärjestelmien standardointia. Tällä hetkellä on käynnissä 3. kierros, johon on valittu seitsemän finalistia ja joista valitaan uusi kvanttiturvallinen standardi julkisen avaimen salaukselle.

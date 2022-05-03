@@ -16,6 +16,12 @@ Nykypäivän kvanttitietokoneet ovat vielä kehitysvaiheessa (\cite{doi:10.1080/
 \section{Shorin algoritmi}
 Vuonna 1994 Peter Shor esitteli Shorin algoritmin, jolla voidaan jakaa kokonaisluku tekijöihinsä kvanttitietokoneella tehokkaasti eli polynomisessa ajassa (\cite{hayward2008quantum}.) Shorin algoritmin tehokkuus perustuu siihen kuinka se hyödyntää edellä mainittua kvanttirinnakkaisuutta. Kvanttitietokoneella Shorin algoritmi suorittaa eksponentiaalisen määrän operaatioita yhdessä askeleessa mikä taas vaatisi klassisella tietokoneella eksponentiaalisen määrän aikaa.
 
+\iffalse
+Shorin algoritmi nojautuu lukuteoriaan (\cite{hayward2008quantum}). Olkoon meillä funktio \[F(a) = x^{a} \mod n\]
+joka on jaksollinen\footnote{Jaksollinen funktio tarkoittaa siis funktiota, joka toistuu samanlaisena tietyn jakson välein.} kun $x$ on suhteellinen alkuluku\footnote{ks. kappale 2.2.} $n$:n kanssa ja $n$ on nyt luku jonka haluamme jakaa tekijöihin. Koska $F(a)$ on jaksollinen niin sillä on tällöin jokin jakso $r$. 
+\fi
+
+%\iffalse
 Shorin algoritmi nojautuu lukuteoriaan (\cite{hayward2008quantum}). %viite
 Olkoon meillä funktio
 \begin{equation}
@@ -76,9 +82,11 @@ Simuloidaan nyt Eukleideen algoritmia pienellä syötteellä. Olkoon $n$ = 15 ja
     \item Lasketaan $syt(10,15)$ ja $syt(12,15)$, jolloin saadaan $syt(10,15) = 5$ ja $syt(12,15) = 3$ ja huomataan, että 3 ja 5 ovat alkuluvut jotka muodostavat luvun 15.
     
 \end{enumerate}
+%\fi
 
 Ongelmana nyt on, että kun $n$ kasvaa hyvin suureksi, niin jakson $r$ selvittäminen funktiolla $F(a)$ käy hyvin hankalaksi (\cite{doi:10.1080/23742917.2016.1226650}). Klassisilla tietokoneilla tämän ratkaisemiseen käytetään nopeita Fourier-muunnoksia (\emph{Fast-Fourier Transform, FFT}), mutta suurilla $n$:n arvoilla niiden laskeminen on hyvin epäkäytännöllistä. Kuten aiemmin mainittiin Shorin algoritmi ratkaisee jakson $r$ etsimisen tehokkaasti hyödyntäen laskennassaan kvanttirinnakkaisuutta. Jakson $r$ määrittäminen on ainut kohta algoritmissa, jossa tarvitaan kvanttitietokonetta ja missä kvanttilaskenta tuo huomattavaa etua.
 
 Nopein suurten kokonaislukujen tekijöihinjakoalgoritmi on yleinen lukukuntaseula (\emph{General Number Field Sieve, GNFS}) (\cite{doi:10.1137/S0036144598347011}). \emph{GNFS}:n asymptoottinen ajoaika on \[exp(c(\log n)^{1/3} (\log \log n)^{2/3})\] missä $n$ on kokonaisluku, joka halutaan jakaa tekijöihin ja $c$ on vakio. GNFS on siis ajan suhteen eksponentiaalinen algoritmi. Shorin algoritmin asymptoottinen ajoaika kvanttitietokoneella on \[O((\log n)^{2}(\log \log n) (\log \log \log n))\] missä $n$ on luku, joka halutaan jakaa tekijöihin. Tämän lisäksi tarvitaan kvanttitietokoneella tehdyn laskennan jälkeen $O(\log n)$ verran prosessointia klassisella tietokoneella. Tämä tehdään, jotta kvanttitietokoneen antama tulos eli $n$:n tekijät voidaan muuttaa klassisen tietokoneen ymmärtämään muotoon.
 
+%ehkä turha?? yhteenvetoon?
 Toistaiseksi Shorin algoritmia ei ole saatu jakamaan tekijöihin kovin suuria lukuja johtuen laskentaan tarvittavasta suuresta resurssien määrästä (\cite{martin2012experimental}). Martin-Lopez et al. (2012) saivat Shorin algoritmia käyttäen jaettua luvun 21 tekijöihin. Monz et al. (2016) saivat jaettua luvun 15 tekijöihin 99\% todennäköisyydellä käyttäen laskennassaan viittä kubittia vaikka oletus oli laskennan vaativan 12 kubittia. Lisäksi Monz et al. (2016) saivat kokeessaan Shorin algoritmin skaalautumaan eli pidettyä atomit stabiilissa tilassa, joka mahdollistaisi suurempien lukujen jakamisen tekijöihin. Shorin algoritmin soveltaminen nykypäivänä käytettyihin RSA:n julkisiin avaimiin vaatisi miljardeja operaatioita tuhansilla fyysisillä kubiteilla (\cite{bernstein2017post}). Mavroeidis et al. (2018) mukaan 1024-bittisen RSA-avaimen tekijöihinjakamiseen tarvitaisiin 2000-kubittinen kvanttitietokone.

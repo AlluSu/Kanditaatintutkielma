@@ -34,7 +34,7 @@ Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä
  \end{enumerate}
 Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että salaus puretaan eri avaimella kuin millä se salataan (\cite{bellare2005introduction}).
  
-  Julkisen avaimen salausjärjestelmien tarjoama suojaus perustuu tiettyihin vaikeisiin lukuteorian ongelmiin (\cite{mavroeidis2018impact}). Monissa ongelmissa kyse on matemaattisista funktioista, jotka on helppo laskea yhteen suuntaan, mutta niiden peruuttaminen tai käänteisoperaatio taas on hyvin hankalaa. Näitä ongelmia ovat muun muassa suurten alkulukujen tekijöihinjako (\emph{Integer Factorization Problem}) sekä diskreetin logaritmin laskeminen (\emph{Discrete Logarithm Problem, DLP}).
+  Julkisen avaimen salausjärjestelmien tarjoama suojaus perustuu tiettyihin vaikeisiin lukuteorian ongelmiin (\cite{mavroeidis2018impact}). Monissa ongelmissa kyse on matemaattisista funktioista, jotka on helppo laskea yhteen suuntaan, mutta niiden peruuttaminen tai käänteisoperaatio taas on hyvin hankalaa. Vaikealla ongelmalla tarkoitetaan tässä tapauksessa sitä, että nykypäivän tietokoneilla kestää hyvin kauan aikaa saada tulos. Näitä ongelmia ovat muun muassa suurten alkulukujen tekijöihinjako (\emph{Integer Factorization Problem}) sekä diskreetin logaritmin laskeminen (\emph{Discrete Logarithm Problem, DLP}).
   Yksi ensimmäisiä ja tänäkin päivänä käytetyimpiä julkisen avaimen salausjärjestelmiä on RSA, joka on nimetty keksijöidensä (Rivest, Shamir ja Adleman) mukaan (\cite{montgomery1994survey}). RSA:n tarjoama suojaus perustuu suurten alkulukujen tekijöihin jakoon. RSA:n avainpari luodaan seuraavasti  (\cite{10.1145/359340.359342}):
   
   \begin{enumerate}
@@ -50,7 +50,7 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
       \item Lasketaan $e$, joka on $d$:n käänteisluku
       \[e d \equiv 1 \pmod{(p-1) (q-1)}\]
   \end{enumerate}
-  Salausavain on nyt pari positiivisia kokonaislukuja ($e$, $n$) ja purkuavain on pari positiivisia kokonaislukuja ($d$, $n$).
+  Salausavain on nyt pari positiivisia kokonaislukuja ($e$, $n$) ja purkuavain on pari positiivisia kokonaislukuja ($d$, $n$). Salausavaimien purkamisen haasteellisuudesta kerrottakkoon, että esimerkiksi 768-bittisen (232 numeroa) RSA-avaimen purkamiseen kuluu aikaa melkein 2000 vuotta yhdellä prosessorilla (\cite{buchmann2016post}). Nykypäivänä yleisesti käytetään vähintään 1024-bittisiä avaimia ja useammin jopa pidempiä kuten 2048-bittisiä tai 4096-bittisiä avaimia.
   
  Esitellään seuraavaksi diskreetin logaritmin ongelma. Olkoon meillä jokin äärellinen kunta $GF$($q$), jossa on $q$ alkiota (\cite{1055638}). Olkoon
  \begin{equation}

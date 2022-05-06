@@ -18,6 +18,8 @@ Vuonna 1994 Peter Shor esitteli Shorin algoritmin, jolla julkisen avaimen salauk
 
 Shorin algoritmin tehokkuus perustuu siihen kuinka se hyödyntää edellä mainittua kvanttirinnakkaisuutta. Kvanttitietokoneella Shorin algoritmi suorittaa eksponentiaalisen määrän operaatioita yhdessä askeleessa mikä taas vaatisi klassisella tietokoneella eksponentiaalisen määrän aikaa.
 
+
+
 \iffalse
 Shorin algoritmi nojautuu lukuteoriaan (\cite{hayward2008quantum}). Olkoon meillä funktio \[F(a) = x^{a} \mod n\]
 joka on jaksollinen\footnote{Jaksollinen funktio tarkoittaa funktiota, joka toistuu samanlaisena tietyn jakson välein.} kun $x$ on suhteellinen alkuluku\footnote{ks. kappale 2.2.} $n$:n kanssa ja $n$ on nyt luku jonka haluamme jakaa tekijöihin. Koska $F(a)$ on jaksollinen niin sillä on tällöin jokin jakso $r$. 
@@ -85,14 +87,15 @@ Simuloidaan nyt Eukleideen algoritmia siten että $n$ = 15 ja haluamme jakaa luv
 \end{enumerate}
 \fi
 
-Kuvaillaan seuraavaksi luvun $n$ jakamista tekijöihin Shorin algoritmin avulla:
+\iffalse
+Algoritmi jolla Shorin algoritmi jakaa luvun $n$ on seuraavanlainen (\cite{doi:10.1080/23742917.2016.1226650}):
 \begin{enumerate}
 
     \item Valitaan satunnainen luku väliltä $x \in \{2, \ldots, n-1\}$
     
-    \item Ovatko $x$ ja $n$ suhteellisia alkulukuja\footnote{ks. kappale 2.3} keskenään? Toisin sanoen jos $syt(x,n) = 1$, mennään kohtaan 3.
+    \item Tutkitaan ovatko $x$ ja $n$ suhteellisia alkulukuja\footnote{ks. kappale 2.3} keskenään eli jos $syt(x,n) = 1$, mennään kohtaan 3. Muuten olemme löytäneet toisen tekijöistä.
     
-    \item Etsitään funktion $x^{a} \mod n$ jakso $r$, missä $a = \mathbb{N}$
+    \item Etsitään funktion $f(x) = x^{a} \mod n$ jakso $r$, missä $a = \mathbb{N}$. Jakson $r$ löytäminen toimii siten, että yhtälöä $f(x) = x^{a} \mod n$ kokeillaan kasvavilla $a$:n arvoilla kunnes löydetään $a$:n arvo jolla yhtälön ratkaisut alkavat toistua.
     
     \item Jos jakso $r$ oli parillinen, niin jatketaan eteenpäin kohtaan 4. Muuten palataan kohtaan 1. ja valitaan uusi satunnainen luku.
     
@@ -100,6 +103,7 @@ Kuvaillaan seuraavaksi luvun $n$ jakamista tekijöihin Shorin algoritmin avulla:
     
     \item Jos $d \neq 1$, olemme löytäneet tekijän jomman kumman tekijän. Muuten palataan kohtaan 1.
 \end{enumerate}
+\fi
 
 Ongelmana nyt on, että kun $n$ kasvaa hyvin suureksi, niin jakson $r$ selvittäminen funktiolla $F(a)$ käy hyvin hankalaksi (\cite{doi:10.1080/23742917.2016.1226650}). Klassisilla tietokoneilla tämän ratkaisemiseen käytetään nopeita Fourier-muunnoksia (\emph{Fast-Fourier Transform, FFT}), mutta suurilla $n$:n arvoilla niiden laskeminen on hyvin epäkäytännöllistä. Kuten aiemmin mainittiin Shorin algoritmi ratkaisee jakson $r$ etsimisen tehokkaasti hyödyntäen laskennassaan kvanttirinnakkaisuutta. Jakson $r$ määrittäminen on ainut kohta algoritmissa, jossa tarvitaan kvanttitietokonetta ja missä kvanttilaskenta tuo huomattavaa etua.
 

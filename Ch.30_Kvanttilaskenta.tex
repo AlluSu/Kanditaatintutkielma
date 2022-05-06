@@ -4,7 +4,7 @@ Seuraavaksi käsittelemme kvanttilaskentaa ja sitä hyödyntäviä kvanttitietok
 \section{Kvanttilaskenta ja kvanttitietokoneet}
 Klassisessa tietokoneessa informaatio esitetään bitteinä ja yksi bitti on tiedon perusyksikkö (\cite{doi:10.1080/23742917.2016.1226650}). Yksittäinen bitti voi saada vain yhden diskreetin arvon kerrallaan ja näitä arvoja kuvataan yleensä arvoilla 0 ja 1. Bitti voi siis olla arvoltaan vuorostaan joko 0 tai 1. Klassisessa tietokoneessa näitä bittejä käsitellään loogisten porttien kautta.
 
-Kvanttitietokoneen laskennan perusyksikkö taas on kubitti eli kvanttibitti (\cite{doi:10.1080/23742917.2016.1226650}). Kvanttitietokoneessa kubitteja käsittelee kvanttiportit kuten klassisessa tietokoneessa bittejä käsittelee loogiset portit. Kubitti voi olla bitin tavoin myös kahdessa eri tilassa. Merkitään näitä tiloja symboleilla
+Kvanttitietokoneen laskennan perusyksikkö taas on kubitti eli kvanttibitti (\cite{doi:10.1080/23742917.2016.1226650}). Kvanttitietokoneessa kubitteja käsitellään kvanttiporttien kautta. Kubitti voi olla bitin tavoin myös kahdessa eri tilassa. Merkitään näitä tiloja symboleilla
 $\ket{0}$ ja $\ket{1}$.\footnote{Kvanttimekaniikassa notaatiota $\ket{}$ kutsutaan Diracin notaatioksi. Se on yleinen notaatio kvanttimekaniikassa tarkoittaen tilaa (\cite{nielsen2001quantum}).} Kubitti eroaa tavallisesta bitistä siten, että se voi olla tilojen $\ket{0}$ tai $\ket{1}$ sijaan superpositiotilassa. Tämä tarkoittaa siis sitä, että mittauksen aikana kubitti voi olla arvoltaan 0 tai 1, mutta laskennan aikana se on yhtä aikaa sekä 0 että 1. Eli tilat $\ket{0}$ ja $\ket{1}$ voivat esiintyä yhtä aikaa. Superpositiotilassa olevalle kubitille tehty operaatio vaikuttaa kumpaankin arvoon samanaikaisesti (\cite{mavroeidis2018impact}). Kubitit voivat myös lomittua keskenään, jota kutsutaan kvanttilomittumiseksi (\emph{Quantum entanglement}). Kun kaksi kubittia lomittuvat keskenään, sen jälkeen niiden tiloja ei voi enää kuvailla riippumatta toisistaan. Sen sijaan ne kuvataan yhtenä objektina, jolla on neljä erillistä tilaa.
 
 Kvanttitietokoneen tehokkaamman laskentatehon mahdollistaa siis nämä edellä mainitut kvanttimekaniikan ilmiöt, kvanttisuperpositio ja kvanttilomittuminen (\cite{mavroeidis2018impact}). Kvanttitietokoneella on siis mahdollista suorittaa laskentaa samanaikaisesti eli rinnakkain jokaiselle kubitin eri tilalle (\cite{doi:10.1080/23742917.2016.1226650}). Tätä kutsutaan kvanttirinnakkaisuudeksi (\emph{Quantum parallelism}). Kvanttitietokone joka käyttää laskentaan $n$ kubittia mahdollistaa samanaikaisesti $2^{n}$ rinnakkaisesti suoritettavaa operaatiota (\cite{mavroeidis2018impact}). Esimerkiksi kolmella kubitilla laskentaa tekevä kvanttitietokone mahdollistaa 8 eri tilaa samanaikaisesti (\cite{doi:10.1080/23742917.2016.1226650}). Kolmella bitillä laskentaa tekevä klassinen tietokone mahdollistaa myös 8 eri tilaa, mutta vain yksi näistä kahdeksasta tilasta voi olla kerrallaan voimassa.  Kvanttitietokone tarjoaa siis eksponentiaalisesti nopeamman laskentatehon. Tätä eksponentiaalista laskentatehoa hyödyntävät algoritmit uhkaavat muun muassa julkisen avaimen salausta.
@@ -23,7 +23,7 @@ Shorin algoritmi nojautuu lukuteoriaan (\cite{hayward2008quantum}). Olkoon meill
 joka on jaksollinen\footnote{Jaksollinen funktio tarkoittaa funktiota, joka toistuu samanlaisena tietyn jakson välein.} kun $x$ on suhteellinen alkuluku\footnote{ks. kappale 2.2.} $n$:n kanssa ja $n$ on nyt luku jonka haluamme jakaa tekijöihin. Koska $F(a)$ on jaksollinen niin sillä on tällöin jokin jakso $r$. 
 \fi
 
-%\iffalse
+\iffalse
 Shorin algoritmi nojautuu lukuteoriaan (\cite{hayward2008quantum}). %viite
 Olkoon meillä funktio
 \begin{equation}
@@ -83,7 +83,23 @@ Simuloidaan nyt Eukleideen algoritmia siten että $n$ = 15 ja haluamme jakaa luv
     \item Lasketaan $syt(10,15)$ ja $syt(12,15)$, jolloin saadaan $syt(10,15) = 5$ ja $syt(12,15) = 3$ ja huomataan, että 3 ja 5 ovat alkuluvut jotka muodostavat luvun 15.
     
 \end{enumerate}
-%\fi
+\fi
+
+Kuvaillaan seuraavaksi luvun $n$ jakamista tekijöihin Shorin algoritmin avulla:
+\begin{enumerate}
+
+    \item Valitaan satunnainen luku väliltä $x \in \{2, \ldots, n-1\}$
+    
+    \item Ovatko $x$ ja $n$ suhteellisia alkulukuja\footnote{ks. kappale 2.3} keskenään? Toisin sanoen jos $syt(x,n) = 1$, mennään kohtaan 3.
+    
+    \item Etsitään funktion $x^{a} \mod n$ jakso $r$, missä $a = \mathbb{N}$
+    
+    \item Jos jakso $r$ oli parillinen, niin jatketaan eteenpäin kohtaan 4. Muuten palataan kohtaan 1. ja valitaan uusi satunnainen luku.
+    
+    \item Lasketaan \[d = max \{syt(x^{r/2}-1,n), syt(x^{r/2}+1,n) \} \]
+    
+    \item Jos $d \neq 1$, olemme löytäneet tekijän jomman kumman tekijän. Muuten palataan kohtaan 1.
+\end{enumerate}
 
 Ongelmana nyt on, että kun $n$ kasvaa hyvin suureksi, niin jakson $r$ selvittäminen funktiolla $F(a)$ käy hyvin hankalaksi (\cite{doi:10.1080/23742917.2016.1226650}). Klassisilla tietokoneilla tämän ratkaisemiseen käytetään nopeita Fourier-muunnoksia (\emph{Fast-Fourier Transform, FFT}), mutta suurilla $n$:n arvoilla niiden laskeminen on hyvin epäkäytännöllistä. Kuten aiemmin mainittiin Shorin algoritmi ratkaisee jakson $r$ etsimisen tehokkaasti hyödyntäen laskennassaan kvanttirinnakkaisuutta. Jakson $r$ määrittäminen on ainut kohta algoritmissa, jossa tarvitaan kvanttitietokonetta ja missä kvanttilaskenta tuo huomattavaa etua.
 

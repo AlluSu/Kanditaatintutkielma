@@ -14,13 +14,13 @@ Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä
  
  \section{Tiivistefunktiot}
  Tiivistefunktiot (\emph{hash functions}) eli puhekielessä hashit  ovat funktioita, jotka ottavat mielivaltaisen pituisen merkkijonon \emph{M} ja muodostavat siitä aina tietyn mittaisen toisen merkkijonon \emph{MD}, jota kutsutaan tiivisteeksi (\cite{sobti2012cryptographic}). Formaalimmin tiivistefunktio on funktio
- \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n \geq 1.\] Voi siis ajatella, että tällainen hash ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
+ \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n \geq 1.\] Voi siis ajatella, että tällainen funktio ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
  
  Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA-1 ja MD-5. %ehkä jokin viite?
- Esimerkiksi SHA-1 tiivistefunktio muodostaa syötteestä aina 160-bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä \emph{hashaus} voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{F}.
+ Esimerkiksi SHA-1 tiivistefunktio muodostaa syötteestä aina 160-bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä tiivistäminen eli hashaus voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{F}.
  
  Tiivistefunktiot ovat symmetrisen salauksen tapaan jo itsessään kvanttiturvallisia (\cite{mavroeidis2018impact}). Tiivistefunktiot muodostavat lohkosalauksen tapaan tietyn mittaisen bittijonon tiivisteen muodossa. Groverin algoritmia hyödyntäen on mahdollista tehdä hyökkäys tiivistefunktioita vastaan löytämällä törmäys (\emph{collision}) kahden tiivisteen välillä. Törmäyksellä tarkoitetaan tilannetta milloin kaksi eri syötettä antavat saman tiivisteen. %ehkä viite?
- Groverin algoritmilta voi suojautua pidentämällä tiivisteen pituutta. Turvallinen raja on, että \emph{n}-bitin suojaukseen tarvitaan 3\emph{n}-bittiä pitkä tiiviste. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot 256-bittiä pitkillä tiivisteillä ovat kvanttiturvallisia (\cite{mavroeidis2018impact}; \cite{buchmann2016post}).
+ Groverin algoritmilta voi suojautua pidentämällä tiivisteen pituutta. Turvallinen raja on, että \emph{n}-bitin suojaukseen tarvitaan 3\emph{n}-bittiä pitkä tiiviste. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot 256-bittiä pitkillä tiivisteillä ovat kvanttiturvallisia (\cite{mavroeidis2018impact, buchmann2016post}).
  
  \section{Julkisen avaimen salaus}
  Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. (\cite{bellare2005introduction}) Tässä tapauksessa purkuavain on salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain (\emph{public key}), joka saa ja pitää olla julkisesti esillä.
@@ -55,12 +55,12 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
  Esitellään seuraavaksi diskreetin logaritmin ongelma. Olkoon meillä jokin äärellinen kunta $GF$($q$), jossa on $q$ alkiota (\cite{1055638}). Olkoon
  \begin{equation}
      \label{eq10}
-     Y = \alpha^{X} \mod q, \; \text{jollekkin} \; 1 \leq X \leq q-1
+     Y = \alpha^{X} \mod q, \; \text{jollekkin} \; 1 \leq X \leq q-1,
  \end{equation}
- missä $\alpha$ on jokin määrätty alkio $GF$($q$):sta. Yhtälö voidaan muuttaa muotoon siten, että ratkaistaan $X$ 
+ missä $\alpha$ on jokin määrätty alkio $GF$($q$):sta. Yhtälö voidaan muuttaa muotoon siten, että ratkaistaan $X$, 
  \begin{equation}
      \label{eq11}
-     X = \log_{\alpha} Y \mod q, \; \text{jollekkin} \; 1 \leq Y \leq q-1
+     X = \log_{\alpha} Y \mod q, \; \text{jollekkin} \; 1 \leq Y \leq q-1.
  \end{equation}
  Nyt siis $Y$:n selvittäminen $X$:stä on helppoa ja vaatii enimmillään $2 \times \log_{2}q$ kertolaskuoperaatiota. Toisaalta $X$:n selvittäminen $Y$:stä ei ole helppoa ja vaatii parhailla algoritmeilla $q^{1/2}$ kertolaskuoperaatiota. Esimerkiksi julkisen avaimen salausjärjestelmät kuten Diffie-Hellman ja elliptisen käyrän salaus (\emph{Elliptic Curve Cryptography, ECC}) hyödyntävät tätä (\cite{mavroeidis2018impact}).
  

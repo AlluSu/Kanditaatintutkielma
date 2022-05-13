@@ -2,25 +2,14 @@
 
 Käymme nyt läpi nykypäivän yleisimpiä salausjärjestelmiä ja niiden toimintaa. Näihin salausjärjestelmiin jokainen tietojärjestelmien käyttäjä törmää nykypäivänä päivittäin tiedostaen tai tiedostamattaan.
 
-%Jatkossa avaimesta puhuttaessa tarkoitetaan tässä kontekstissa salausavainta, jolla voidaan purkaa tai salata lähetettävä viesti. Käytännössä tämä avain on \emph{k}-bittiä pitkä bittijono, joka on muodostettu jonkin salausavainten luontiin tarkoitetun algoritmin avulla.
-
 \section{Symmetrinen salaus}
  Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}) (\cite{117146}). AES jakaa datan 128-bittiä pitkiin lohkoihin ja käyttää 128-, 192- ja 256-bittisiä salausavaimia.
- 
- Symmetrinen salaus on itsessään kvanttiturvallinen, koska niiden murtamiseen käytetään yleensä väsytyshyökkäystä (\emph{brute-force attack}) (\cite{mavroeidis2018impact}.) Väsytyshyökkäyksellä tarkoitetaan kaikkien mahdollisten vaihtoehtojen, esimerkiksi salausavaimien, systemaattista kokeilua. %ehkä viite
-Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä salausta käyttäviä järjestelmiä huomattavan tehokkaasti siten, että ne olisi uhattuna muuttua turvattomiksi. Kuitenkin Groverin algoritmia hyödyntämällä on mahdollista nopeuttaa kvanttitietokoneella tehtyjä väsytyshyökkäyksiä.
- 
- Lyhyesti Groverin algoritmi on kvanttialgoritmi, jota käytetään tiedon hakemiseen (\cite{hayward2008quantum}). Groverin algoritmi löytää \emph{N}-kokoisesta järjestämättömästä listasta halutun alkion $\sqrt{N}$ askeleella. Klassisilla tietokoneilla ja algoritmeilla tällaisessa tehtävässä menee aina vähintään $N$ askelta. Siten Groverin algoritmi tuo neliöllisen nopeutuksen kvanttitietokoneella tehtyihin brute-force hyökkäyksiin (\cite{mavroeidis2018impact}). Kvanttitietokone joka käyttää Groverin algoritmia \emph{n}-bittisen salausavaimen purkamiseen laskee avaimen $\sqrt{2^{n}} = 2^{n/2}$ operaatiolla. Tällöin esimerkiksi 128-bittinen AES-salaus antaisi 64-bittisen suojauksen. Toisaalta näitä hyökkäyksiä voidaan hidastaa esimerkiksi tuplaamalla salausavaimen käyttämä bittien määrä. Tällöin vaadittavien kokeilujen määrä kasvaa eksponentiaalisesti ja kaikkien mahdollisten vaihtoehtojen kokeileminen vie erittäin pitkän ajan. Lohkosalaukseen perustuvia salausjärjestelmiä AES-192 ja AES-256 pidetään kvanttiturvallisina nyt ja jatkossa (\cite{mavroeidis2018impact}). Nykypäivänä 80-bittistä suojausta pidetään turvallisena rajana klassisella tietokoneella.
  
  \section{Tiivistefunktiot}
  Tiivistefunktiot (\emph{hash functions}) eli puhekielessä hashit  ovat funktioita, jotka ottavat mielivaltaisen pituisen merkkijonon \emph{M} ja muodostavat siitä aina tietyn mittaisen toisen merkkijonon \emph{MD}, jota kutsutaan tiivisteeksi (\cite{sobti2012cryptographic}). Formaalimmin tiivistefunktio on funktio
  \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n \geq 1.\] Voi siis ajatella, että tällainen funktio ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
  
- Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA-1 ja MD-5. %ehkä jokin viite?
- Esimerkiksi SHA-1 tiivistefunktio muodostaa syötteestä aina 160-bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste \emph{MD} funktiolla \emph{F}, mutta tiivisteestä \emph{MD} ja funktiosta \emph{F} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste niin ei ole olemassa yleistä menetelmää, jolla tämä tiivistäminen eli hashaus voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{F}.
- 
- Tiivistefunktiot ovat symmetrisen salauksen tapaan jo itsessään kvanttiturvallisia (\cite{mavroeidis2018impact}). Tiivistefunktiot muodostavat lohkosalauksen tapaan tietyn mittaisen bittijonon tiivisteen muodossa. Groverin algoritmia hyödyntäen on mahdollista tehdä hyökkäys tiivistefunktioita vastaan löytämällä törmäys (\emph{collision}) kahden tiivisteen välillä. Törmäyksellä tarkoitetaan tilannetta milloin kaksi eri syötettä antavat saman tiivisteen. %ehkä viite?
- Groverin algoritmilta voi suojautua pidentämällä tiivisteen pituutta. Turvallinen raja on, että \emph{n}-bitin suojaukseen tarvitaan 3\emph{n}-bittiä pitkä tiiviste. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot 256-bittiä pitkillä tiivisteillä ovat kvanttiturvallisia (\cite{mavroeidis2018impact, buchmann2016post}).
+ Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA-1 ja MD-5. Esimerkiksi \mbox{SHA-1} tiivistefunktio muodostaa syötteestä aina 160-bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste $MD = h(M)$, mutta tiivisteestä \emph{MD} ja funktiosta \emph{h} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste eli hash niin ei ole olemassa yleistä menetelmää, jolla tämä tiivistäminen eli hashaus voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{h}.
  
  \section{Julkisen avaimen salaus}
  Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. (\cite{bellare2005introduction}) Tässä tapauksessa purkuavain on salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain (\emph{public key}), joka saa ja pitää olla julkisesti esillä.
@@ -44,11 +33,11 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
       \item Lasketaan $n = pq$. Tästä saatava $n$ saa olla julkisesti esillä.
       
       \item Valitaan jokin suuri satunnainen kokonaisluku $d$ siten että,
-      \[syt(d, (p-1)(q-1)) = 1\]
+      \[syt(d, (p-1)(q-1)) = 1.\]
       Tarkemmin sanottuna $d$ ja $(p-1)(q-1)$ ovat nyt keskenään suhteellisia alkulukuja (\emph{coprime} tai \emph{relatively prime}). Tämä tarkoittaa sitä, että niiden suurin yhteinen tekijä eli suurin kokonaisluku, joka jakaa sekä $d$:n että $(p-1)(q-1)$:n on 1.
       
-      \item Lasketaan $e$, joka on $d$:n käänteisluku
-      \[e d \equiv 1 \pmod{(p-1) (q-1)}\]
+      \item Lasketaan $e$, joka on $d$:n käänteisluku,
+      \[e d \equiv 1 \pmod{(p-1) (q-1)}.\]
   \end{enumerate}
   Salausavain on nyt pari positiivisia kokonaislukuja ($e$, $n$) ja purkuavain on pari positiivisia kokonaislukuja ($d$, $n$). Salausavaimien purkamisen haasteellisuudesta mainittakoon, että esimerkiksi 768-bittisen (232 numeroa) RSA-avaimen purkamiseen kuluu aikaa melkein 2000 vuotta yhdellä prosessorilla (\cite{buchmann2016post}). Nykypäivänä yleisesti käytetään vähintään 1024-bittisiä avaimia ja useammin jopa pidempiä kuten 2048-bittisiä tai 4096-bittisiä avaimia.
   
@@ -64,7 +53,7 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
  \end{equation}
  Nyt siis $Y$:n selvittäminen $X$:stä on helppoa ja vaatii enimmillään $2 \times \log_{2}q$ kertolaskuoperaatiota. Toisaalta $X$:n selvittäminen $Y$:stä ei ole helppoa ja vaatii parhailla algoritmeilla $q^{1/2}$ kertolaskuoperaatiota. Esimerkiksi julkisen avaimen salausjärjestelmät kuten Diffie-Hellman ja elliptisen käyrän salaus (\emph{Elliptic Curve Cryptography, ECC}) hyödyntävät tätä (\cite{mavroeidis2018impact}).
  
- Edellä mainitut suurien kokonaislukujen tekijöihinjako ja diskreetin logaritmin löytäminen ovat ongelmia, joita on tutkittu paljon, mutta siitä huolimatta niille ei ole löytynyt polynomisessa ajassa toimivia algoritmeja (\cite{doi:10.1137/S0036144598347011}). Peter Shor esitteli vuonna 1994 Shorin algoritmin (\cite{mavroeidis2018impact}), jota käyttäen edellä mainitut vaikeat lukuteorian ongelmat voidaan ratkaista tehokkaasti eli polynomisessa ajassa kvanttitietokoneella (\cite{doi:10.1137/S0036144598347011}). Käsittelemme Shorin algoritmia myöhemmin kappaleessa 3.2 kvanttilaskennan yhteydessä.
+ Edellä mainitut suurien kokonaislukujen tekijöihinjako ja diskreetin logaritmin löytäminen ovat ongelmia, joita on tutkittu paljon, mutta siitä huolimatta niille ei ole löytynyt polynomisessa ajassa toimivia algoritmeja (\cite{doi:10.1137/S0036144598347011}). Peter Shor esitteli vuonna 1994 Shorin algoritmin (\cite{mavroeidis2018impact}), jota käyttäen edellä mainitut vaikeat lukuteorian ongelmat voidaan ratkaista tehokkaasti eli polynomisessa ajassa kvanttitietokoneella (\cite{doi:10.1137/S0036144598347011}). Käsittelemme Shorin algoritmia myöhemmin kappaleessa 3.3 kvanttilaskennan yhteydessä.
  
  \section{Digitaalinen allekirjoitus}
  Digitaalinen allekirjoitus (\emph{digital signature}) on menetelmä, jolla voidaan todentaa digitaalisia dokumentteja (\cite{1649003}). Sen toimintaperiaate on analoginen perinteisiin allekirjoituksiin verrattuna. Digitaalisella allekirjoituksella todennetaan muun muassa digitaalisen dokumentin datan eheys. Eheydellä voidaan tässä kontekstissa tarkoittaa esimerkiksi dokumentin päivämäärää tai sisältämää informaatiota. Digitaalisia allekirjoituksia käytetään myös esimerkiksi sähköpostiliikenteen ja luottokorttitietojen salaamiseen verkon yli.

@@ -24,7 +24,7 @@ Toistaiseksi ei ole löydetty kvanttialgoritmeja, jotka murtaisivat symmetristä
   Tiivistefunktiot ovat symmetrisen salauksen tapaan jo itsessään kvanttiturvallisia (\cite{mavroeidis2018impact}). Tiivistefunktiot muodostavat lohkosalauksen tapaan tietyn mittaisen bittijonon tiivisteen muodossa. Groverin algoritmia hyödyntäen on mahdollista tehdä hyökkäys tiivistefunktioita vastaan löytämällä törmäys (\emph{collision}) kahden tiivisteen välillä. Törmäyksellä tarkoitetaan tilannetta milloin kaksi eri syötettä antavat saman tiivisteen. %ehkä viite?
  Groverin algoritmilta voi suojautua pidentämällä tiivisteen pituutta. Turvallinen raja on, että \emph{n}-bitin suojaukseen tarvitaan 3\emph{n}-bittiä pitkä tiiviste. Esimerkiksi SHA-2 ja SHA-3 standardin tiivistefunktiot 256-bittiä pitkillä tiivisteillä ovat kvanttiturvallisia (\cite{mavroeidis2018impact, buchmann2016post}).
  
- 
+ Kuten kappaleessa 2 mainittiinkin, nykyinen julkisen avaimen salaus ja digitaalisen allekirjoittamisen menetelmät eivät ole kvanttiturvallisia edes suurilla avaimilla Shorin algoritmin myötä.
 
 \section{Shorin algoritmi}
 Vuonna 1994 Peter Shor esitteli Shorin algoritmin, jolla julkisen avaimen salaukseen liittyvät matemaattiset ongelmat, diskreetin logaritmin laskeminen ja suurten kokonaislukujen tekijöihinjako, voidaan ratkaista tehokkaasti eli polynomisessa ajassa (\cite{doi:10.1137/S0036144598347011}). Käsittelemme tässä kappaleessa ainoastaan kuinka Shorin algoritmi jakaa suuria kokonaislukuja tekijöihinsä, diskreetin logaritmin laskemista Shorin algoritmin avulla ei käsitellä.
@@ -62,7 +62,7 @@ ja jos $r$ on parillinen niin
 
 Nyt $(x^{r/2} - 1)(x^{r/2} + 1)$ on $n$:n, eli luvun jonka haluamme jakaa tekijöihin, monikerta (\cite{hayward2008quantum}). Joten jos $\lvert x^{r/2} \rvert$ ei ole 1, niin ainakin toisella $(x^{r/2} - 1), (x^{r/2} + 1)$ on sama tekijä kuin $n$:llä. Nyt laskemalla $syt(x^{r/2} - 1, n)$ ja $syt(x^{r/2} + 1, n)$ saadaan $n$:n tekijä.
 
-Simuloidaan nyt Eukleideen algoritmia siten että $n$ = 15 ja haluamme jakaa luvun $n$ tekijöihin.
+Simuloidaan nyt Eukleideen algoritmia siten että $n = 15$ ja se on luku jonka haluamme jakaa tekijöihin.
 \begin{enumerate}
     \item Valitaan suhteellinen alkuluku. Valitaan 11, koska $syt(11,15) = 1$.
     

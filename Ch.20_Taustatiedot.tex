@@ -3,13 +3,13 @@
 Käymme nyt läpi nykypäivän yleisimpiä salausjärjestelmiä ja niiden toimintaa. Näihin salausjärjestelmiin jokainen tietojärjestelmien käyttäjä törmää nykypäivänä päivittäin tiedostaen tai tiedostamattaan.
 
 \section{Symmetrinen salaus}
- Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}) (\cite{117146}). AES jakaa datan 128-bittiä pitkiin lohkoihin ja käyttää 128-, 192- ja 256-bittisiä salausavaimia.
+ Symmetrisessä salauksessa sekä viestin lähettäjän eli salaajan sekä viestin vastaanottajan eli salauksen purkajan täytyy tietää sama avain (\cite{bellare2005introduction}). Toisin sanoen symmetrisessä salauksessa viestin salaus puretaan samalla avaimella kuin millä viesti salataan.  Symmetrisessä salauksessa ongelmallista on salausavaimen jakaminen turvallisesti ja luottamuksellisesti osapuolien välillä. Jos symmetriseen salaukseen käytetty salausavain joutuu jonkun kolmannen osapuolen käsiin, voi tämä osapuoli purkaa salauksen tällä avaimella. Esimerkki symmetrisestä salausjärjestelmästä on lohkosalaukseen (\emph{blockcipher}) perustuva AES (\emph{Advanced Encryption Standard}) (\cite{117146}). AES jakaa datan 128 bittiä pitkiin lohkoihin ja käyttää 128-, 192- ja 256-bittisiä salausavaimia.
  
  \section{Tiivistefunktiot}
  Tiivistefunktiot (\emph{hash functions}) eli puhekielessä hashit  ovat funktioita, jotka ottavat mielivaltaisen pituisen merkkijonon \emph{M} ja muodostavat siitä aina tietyn mittaisen toisen merkkijonon \emph{MD}, jota kutsutaan tiivisteeksi (\cite{sobti2012cryptographic}). Formaalimmin tiivistefunktio on funktio
  \[h: D \to R, \text{ missä } D = \big\{0,1\big\}^{*}, R = \big\{0,1\big\}^{n}, \text{ jollain } n \geq 1.\] Voi siis ajatella, että tällainen funktio ottaa merkkijonon ja tiivistää sen toiseksi merkkijonoksi, josta tulee sana tiiviste.
  
- Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA-1 ja MD-5. Esimerkiksi \mbox{SHA-1} tiivistefunktio muodostaa syötteestä aina 160-bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste $MD = h(M)$, mutta tiivisteestä \emph{MD} ja funktiosta \emph{h} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste eli hash niin ei ole olemassa yleistä menetelmää, jolla tämä tiivistäminen eli hashaus voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{h}.
+ Yleisesti käytettyjä tiivistefunktoita ovat muun muassa SHA-1 ja MD-5. Esimerkiksi \mbox{SHA-1} tiivistefunktio muodostaa syötteestä 160 bittiä pitkän tiivisteen (\cite{bellare2005introduction}). Tärkeä ominaisuus tiivistefunktioissa on se, että ne toimivat yhteen suuntaan. Viestistä \emph{M} on helposti saatavissa tiiviste $MD = h(M)$, mutta tiivisteestä \emph{MD} ja funktiosta \emph{h} ei voi helposti päätellä tai muodostaa viestiä \emph{M} (\cite{bakhtiari1995cryptographic}). Toisin sanoen kun jostain viestistä, esimerkiksi salasanasta, on tehty tiiviste eli hash niin ei ole olemassa yleistä menetelmää, jolla tämä tiivistäminen eli hashaus voitaisiin peruuttaa tai saataisiin selville itse funktio \emph{h}.
  
  \section{Julkisen avaimen salaus}
  Julkisen avaimen salausjärjestelmässä jokainen käyttäjä luo itselleen parin avaimia, jotka ovat salausavain ja purkuavain. (\cite{bellare2005introduction}) Tässä tapauksessa purkuavain on salainen avain (\emph{secret key\footnote{Joskus myös \emph{private key}}}) ja sitä ei missään nimessä pidä paljastaa muille. Tällöin salausavain on julkinen avain (\emph{public key}), joka saa ja pitää olla julkisesti esillä.
@@ -42,15 +42,13 @@ Ero symmetriseen salaukseen epäsymmetrisessa salauksessa on siis se, että sala
   Salausavain on nyt pari positiivisia kokonaislukuja ($e$, $n$) ja purkuavain on pari positiivisia kokonaislukuja ($d$, $n$). Salausavaimien purkamisen haasteellisuudesta mainittakoon, että esimerkiksi 768-bittisen (232 numeroa) RSA-avaimen purkamiseen kuluu aikaa melkein 2000 vuotta yhdellä prosessorilla (\cite{buchmann2016post}). Nykypäivänä yleisesti käytetään vähintään 1024-bittisiä avaimia ja useammin jopa pidempiä kuten 2048-bittisiä tai 4096-bittisiä avaimia.
   
  Esitellään seuraavaksi diskreetin logaritmin ongelma. Olkoon meillä jokin äärellinen kunta $GF$($q$), jossa on $q$ alkiota (\cite{1055638}). Olkoon
- \begin{equation}
-     \label{eq10}
+ \begin{align*}
      Y = \alpha^{X} \mod q, \; \text{jollekkin} \; 1 \leq X \leq q-1,
- \end{equation}
+ \end{align*}
  missä $\alpha$ on jokin määrätty alkio $GF$($q$):sta. Yhtälö voidaan muuttaa muotoon siten, että ratkaistaan $X$, 
- \begin{equation}
-     \label{eq11}
+ \begin{align*}
      X = \log_{\alpha} Y \mod q, \; \text{jollekkin} \; 1 \leq Y \leq q-1.
- \end{equation}
+ \end{align*}
  Nyt siis $Y$:n selvittäminen $X$:stä on helppoa ja vaatii enimmillään $2 \times \log_{2}q$ kertolaskuoperaatiota. Toisaalta $X$:n selvittäminen $Y$:stä ei ole helppoa ja vaatii parhailla algoritmeilla $q^{1/2}$ kertolaskuoperaatiota. Esimerkiksi julkisen avaimen salausjärjestelmät kuten Diffie-Hellman ja elliptisen käyrän salaus (\emph{Elliptic Curve Cryptography, ECC}) hyödyntävät tätä (\cite{mavroeidis2018impact}).
  
  Edellä mainitut suurien kokonaislukujen tekijöihinjako ja diskreetin logaritmin löytäminen ovat ongelmia, joita on tutkittu paljon, mutta siitä huolimatta niille ei ole löytynyt polynomisessa ajassa toimivia algoritmeja (\cite{doi:10.1137/S0036144598347011}). Peter Shor esitteli vuonna 1994 Shorin algoritmin (\cite{mavroeidis2018impact}), jota käyttäen edellä mainitut vaikeat lukuteorian ongelmat voidaan ratkaista tehokkaasti eli polynomisessa ajassa kvanttitietokoneella (\cite{doi:10.1137/S0036144598347011}). Käsittelemme Shorin algoritmia myöhemmin kappaleessa 3.3 kvanttilaskennan yhteydessä.
